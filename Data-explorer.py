@@ -38,7 +38,7 @@ def data_plotter(x, y, c, ylabel, title):
 
 Xlist = list(in_csv.columns[15:])
 #Xlist.append('Final Effluent Total suspended solids')
-Xlist
+len(Xlist)
 
 df_X = pd.DataFrame()
 for i in Xlist:
