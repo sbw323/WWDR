@@ -1,0 +1,4636 @@
+Model {
+  Name			  "benchmark"
+  Version		  7.0
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.110"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "ISO-8859-1"
+  SaveDefaultBlockParams  on
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  on
+  ShowLineDimensions	  on
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  off
+  ShowViewerIcons	  off
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations off
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  BlockNameDataTip	  off
+  BlockParametersDataTip  on
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  Created		  "Wed Jul 28 11:20:23 1999"
+  Creator		  "ielulf"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "xavier"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Fri Sep 17 13:23:28 2010"
+  RTWModifiedTimeStamp	  0
+  ModelVersionFormat	  "1.%<AutoIncrement:110>"
+  ConfigurationManager	  "none"
+  SimulationMode	  "normal"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "oneshot"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  off
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock off
+  BufferReuse		  on
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      1
+      Version		      "1.3.0"
+      Array {
+	Type			"Handle"
+	Dimension		7
+	Simulink.SolverCC {
+	  $ObjectID		  2
+	  Version		  "1.3.0"
+	  StartTime		  "0.0"
+	  StopTime		  "14"
+	  AbsTol		  "1e-8"
+	  FixedStep		  "0.01"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ConsecutiveZCsStepRelTol "10*128*eps"
+	  MaxConsecutiveZCs	  "1000"
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "auto"
+	  MinStep		  "auto"
+	  MaxConsecutiveMinStep	  "1"
+	  RelTol		  "1e-5"
+	  SolverMode		  "SingleTasking"
+	  Solver		  "ode45"
+	  SolverName		  "ode45"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  AlgebraicLoopSolver	  "TrustRegion"
+	  SolverResetMethod	  "Fast"
+	  PositivePriorityOrder	  off
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  RateTranMode		  "Deterministic"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  3
+	  Version		  "1.3.0"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  off
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveFormat		  "Array"
+	  SaveOutput		  off
+	  SaveState		  off
+	  SignalLogging		  on
+	  InspectSignalLogs	  off
+	  SaveTime		  on
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "t"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "sigsOut"
+	  OutputOption		  "SpecifiedOutputTimes"
+	  OutputTimes		  "[0:(1/96):14]"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  4
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    5
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "InitFltsAndDblsToZero"
+	    Cell		    "OptimizeModelRefInitCode"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.3.0"
+	  BlockReduction	  off
+	  BooleanDataType	  off
+	  ConditionallyExecuteInputs on
+	  InlineParams		  off
+	  InlineInvariantSignals  off
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnforceIntegerDowncast  on
+	  ExpressionFolding	  on
+	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  on
+	  NoFixptDivByZeroProtection off
+	  EfficientFloat2IntCast  off
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	  BufferReusableBoundary  on
+	  SimCompilerOptimization "Off"
+	  AccelVerboseBuild	  off
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  5
+	  Version		  "1.3.0"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  SignalInfNanChecking	  "none"
+	  SignalRangeChecking	  "none"
+	  ReadBeforeWriteMsg	  "UseLocalSettings"
+	  WriteAfterWriteMsg	  "UseLocalSettings"
+	  WriteAfterReadMsg	  "UseLocalSettings"
+	  AlgebraicLoopMsg	  "none"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  SaveWithDisabledLinksMsg "warning"
+	  SaveWithParameterizedLinksMsg	"none"
+	  CheckSSInitialOutputMsg on
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "TryResolveAllWithWarning"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  TimeAdjustmentMsg	  "none"
+	  MaxConsecutiveZCsMsg	  "error"
+	  SolverPrmCheckMsg	  "none"
+	  InheritedTsInSrcMsg	  "none"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "warning"
+	  MultiTaskCondExecSysMsg "none"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  SigSpecEnsureSampleTimeMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterUnderflowMsg	  "none"
+	  ParameterPrecisionLossMsg "warning"
+	  ParameterTunabilityLossMsg "warning"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Use local settings"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "none"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  UniqueDataStoreMsg	  "none"
+	  BusObjectLabelMismatch  "warning"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  ModelReferenceSimTargetVerbose off
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	  ModelReferenceExtraNoncontSigs "error"
+	  StateNameClashWarn	  "warning"
+	  StrictBusMsg		  "None"
+	  LoggingUnavailableSignals "error"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  6
+	  Version		  "1.3.0"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "Specified"
+	  TargetUnknown		  on
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  7
+	  Version		  "1.3.0"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  8
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    "IncludeHyperlinkInReport"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.3.0"
+	  SystemTargetFile	  "grt.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  GenerateMakefile	  on
+	  TemplateMakefile	  "grt_unix.tmf"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ConfigAtBuild		  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  TargetLang		  "C"
+	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  on
+	  GenerateTraceInfo	  off
+	  RTWCompilerOptimization "Off"
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      9
+	      Array {
+		Type			"Cell"
+		Dimension		16
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"InsertBlockDesc"
+		Cell			"SFDataObjDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		Cell			"CustomSymbolStrGlobalVar"
+		Cell			"CustomSymbolStrType"
+		Cell			"CustomSymbolStrField"
+		Cell			"CustomSymbolStrFcn"
+		Cell			"CustomSymbolStrBlkIO"
+		Cell			"CustomSymbolStrTmpVar"
+		Cell			"CustomSymbolStrMacro"
+		PropName		"DisabledProps"
+	      }
+	      Version		      "1.3.0"
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      IncDataTypeInIds	      off
+	      MangleLength	      1
+	      CustomSymbolStrGlobalVar "$R$N$M"
+	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrField    "$N$M"
+	      CustomSymbolStrFcn      "$R$N$M$F"
+	      CustomSymbolStrBlkIO    "rtb_$N$M"
+	      CustomSymbolStrTmpVar   "$N$M"
+	      CustomSymbolStrMacro    "$R$N$M"
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      SimulinkBlockComments   on
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	    }
+	    Simulink.GRTTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      10
+	      Array {
+		Type			"Cell"
+		Dimension		13
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"GenerateTestInterfaces"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"SupportNonFinite"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		PropName		"DisabledProps"
+	      }
+	      Version		      "1.3.0"
+	      TargetFcnLib	      "ansi_tfl_tmw.mat"
+	      TargetLibSuffix	      ""
+	      TargetPreCompLibLocation ""
+	      GenFloatMathFcnCalls    "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      GenerateTestInterfaces  off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      CompOptLevelCompliant   on
+	      IncludeMdlTerminateFcn  on
+	      CombineOutputUpdateFcns off
+	      SuppressErrorStatus     off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      on
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      EnableShiftOperators    on
+	      ParenthesesLevel	      "Nominal"
+	      PortableWordSizes	      off
+	      ModelStepFunctionPrototypeControlCompliant off
+	      ExtMode		      off
+	      ExtModeStaticAlloc      off
+	      ExtModeTesting	      off
+	      ExtModeStaticAllocSize  1000000
+	      ExtModeTransport	      0
+	      ExtModeMexFile	      "ext_comm"
+	      ExtModeIntrfLevel	      "Level1"
+	      RTWCAPISignals	      off
+	      RTWCAPIParams	      off
+	      RTWCAPIStates	      off
+	      GenerateASAP2	      off
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      CurrentDlgPage	      "Data Import//Export"
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    1
+  }
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Clock
+      DisplayTime	      off
+    }
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      Display
+      Format		      "short"
+      Decimation	      "10"
+      Floating		      off
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      FromWorkspace
+      VariableName	      "simulink_input"
+      SampleTime	      "-1"
+      Interpolate	      on
+      ZeroCross		      off
+      OutputAfterFinalValue   "Extrapolation"
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      DataType		      "auto"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchByCopyingInsideSignal off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      DataType		      "auto"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Product
+      Inputs		      "2"
+      Multiplication	      "Element-wise(.*)"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Selector
+      NumberOfDimensions      "1"
+      IndexMode		      "One-based"
+      InputPortWidth	      "-1"
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      "S-Function"
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Switch
+      Criteria		      "u2 >= Threshold"
+      Threshold		      "0"
+      InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Inherit via internal rule"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      VariableName	      "simulink_output"
+      MaxDataPoints	      "1000"
+      Decimation	      "1"
+      SampleTime	      "0"
+      FixptAsFi		      off
+    }
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      SamplingMode	      "Sample based"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "fixdt(1,16,0)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "[]"
+      SampleTime	      "inf"
+      FramePeriod	      "inf"
+    }
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "benchmark"
+    Location		    [2, 82, 1910, 1030]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    TiledPaperMargins	    [0.196850, 0.196850, 0.196850, 0.196850]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "109"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      FromWorkspace
+      Name		      " "
+      Position		      [475, 660, 565, 690]
+      Orientation	      "left"
+      VariableName	      "CONSTINFLUENT"
+      OutputAfterFinalValue   "Holding final value"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      " Select input"
+      Ports		      [2, 1]
+      Position		      [340, 699, 370, 761]
+      Orientation	      "left"
+      BackgroundColor	      "red"
+      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
+      SourceType	      "Manual Switch"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      sw		      "1"
+      action		      "0"
+      varsize		      off
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Bioreactor_1"
+      Ports		      [4, 1]
+      Position		      [290, 255, 330, 415]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Bioreactor_1"
+	Location		[2, 82, 1910, 1030]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.196850, 0.196850, 0.196850, 0.196850]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "carb"
+	  Position		  [305, 148, 335, 162]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "metal"
+	  Position		  [305, 198, 335, 212]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "in"
+	  Position		  [305, 373, 335, 387]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "KLa"
+	  Position		  [305, 423, 335, 437]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  "Bioreactor_1"
+	  Ports			  [1, 1]
+	  Position		  [775, 280, 835, 310]
+	  FunctionName		  "asm2d"
+	  Parameters		  "XINIT1,PAR1,VOL1,SOSAT1, DECAY, TEMPMODEL, ACTIVATE"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_KLa1"
+	  Position		  [770, 415, 830, 445]
+	  VariableName		  "kla1in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_carb1"
+	  Position		  [765, 139, 825, 171]
+	  VariableName		  "carbon1in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_metal1"
+	  Position		  [765, 189, 825, 221]
+	  VariableName		  "metal1in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_reac1"
+	  Position		  [905, 230, 965, 260]
+	  VariableName		  "reac1"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "add KLa"
+	  Ports			  [2, 1]
+	  Position		  [715, 277, 750, 313]
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "carboncombiner"
+	  Ports			  [2, 1]
+	  Position		  [435, 267, 490, 298]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "carboncombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.196850, 0.196850, 0.196850, 0.196850]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "carboncombiner_asm2d"
+	      Parameters	      "CARBONSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "metalcombiner"
+	  Ports			  [2, 1]
+	  Position		  [565, 267, 620, 298]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "metalcombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "metalcombiner_asm2d"
+	      Parameters	      "METALSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "out"
+	  Position		  [1215, 288, 1245, 302]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "Bioreactor_1"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "Store_reac1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "out"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "in"
+	  SrcPort		  1
+	  Points		  [0, -90]
+	  DstBlock		  "carboncombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "KLa"
+	  SrcPort		  1
+	  Points		  [310, 0]
+	  Branch {
+	    DstBlock		    "Store_KLa1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -125]
+	    DstBlock		    "add KLa"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "carboncombiner"
+	  SrcPort		  1
+	  Points		  [55, 0]
+	  DstBlock		  "metalcombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "metal"
+	  SrcPort		  1
+	  Points		  [210, 0; 0, 5]
+	  Branch {
+	    DstBlock		    "metalcombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -5]
+	    DstBlock		    "Store_metal1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "metalcombiner"
+	  SrcPort		  1
+	  DstBlock		  "add KLa"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "carb"
+	  SrcPort		  1
+	  Points		  [80, 0]
+	  Branch {
+	    DstBlock		    "carboncombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Store_carb1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "add KLa"
+	  SrcPort		  1
+	  DstBlock		  "Bioreactor_1"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Bioreactor_2"
+      Ports		      [4, 1]
+      Position		      [380, 254, 420, 416]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Bioreactor_2"
+	Location		[2, 82, 1910, 1030]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.196850, 0.196850, 0.196850, 0.196850]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "carb2"
+	  Position		  [585, 193, 615, 207]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "metal2"
+	  Position		  [585, 243, 615, 257]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "in1"
+	  Position		  [585, 418, 615, 432]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "KLa2"
+	  Position		  [585, 468, 615, 482]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  "Bioreactor_1"
+	  Ports			  [1, 1]
+	  Position		  [1055, 325, 1115, 355]
+	  FunctionName		  "asm2d"
+	  Parameters		  "XINIT2,PAR2,VOL2,SOSAT2, DECAY, TEMPMODEL, ACTIVATE"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_KLa1"
+	  Position		  [1050, 460, 1110, 490]
+	  VariableName		  "kla2in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_carb1"
+	  Position		  [1045, 184, 1105, 216]
+	  VariableName		  "carbon2in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_metal1"
+	  Position		  [1045, 234, 1105, 266]
+	  VariableName		  "metal2in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_reac1"
+	  Position		  [1185, 275, 1245, 305]
+	  VariableName		  "reac2"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "add KLa1"
+	  Ports			  [2, 1]
+	  Position		  [995, 322, 1030, 358]
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "carboncombiner"
+	  Ports			  [2, 1]
+	  Position		  [715, 312, 770, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "carboncombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "carboncombiner_asm2d"
+	      Parameters	      "CARBONSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "metalcombiner"
+	  Ports			  [2, 1]
+	  Position		  [845, 312, 900, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "metalcombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "metalcombiner_asm2d"
+	      Parameters	      "METALSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "out1"
+	  Position		  [1495, 333, 1525, 347]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "add KLa1"
+	  SrcPort		  1
+	  DstBlock		  "Bioreactor_1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Bioreactor_1"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "Store_reac1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "in1"
+	  SrcPort		  1
+	  Points		  [0, -90]
+	  DstBlock		  "carboncombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "KLa2"
+	  SrcPort		  1
+	  Points		  [310, 0]
+	  Branch {
+	    DstBlock		    "Store_KLa1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -125]
+	    DstBlock		    "add KLa1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "carboncombiner"
+	  SrcPort		  1
+	  Points		  [55, 0]
+	  DstBlock		  "metalcombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "metal2"
+	  SrcPort		  1
+	  Points		  [210, 0; 0, 5]
+	  Branch {
+	    DstBlock		    "metalcombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -5]
+	    DstBlock		    "Store_metal1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "metalcombiner"
+	  SrcPort		  1
+	  DstBlock		  "add KLa1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "carb2"
+	  SrcPort		  1
+	  Points		  [80, 0]
+	  Branch {
+	    DstBlock		    "carboncombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Store_carb1"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Bioreactor_3"
+      Ports		      [4, 1]
+      Position		      [765, 249, 805, 411]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Bioreactor_3"
+	Location		[2, 82, 1910, 1030]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "carb3"
+	  Position		  [585, 193, 615, 207]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "metal3"
+	  Position		  [585, 243, 615, 257]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "in1"
+	  Position		  [585, 418, 615, 432]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "KLa3"
+	  Position		  [585, 468, 615, 482]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  "Bioreactor_3"
+	  Ports			  [1, 1]
+	  Position		  [1055, 325, 1115, 355]
+	  FunctionName		  "asm2d"
+	  Parameters		  "XINIT3,PAR3,VOL3,SOSAT3, DECAY,TEMPMODEL, ACTIVATE"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_KLa3"
+	  Position		  [1050, 460, 1110, 490]
+	  VariableName		  "kla3in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_carb3"
+	  Position		  [1045, 184, 1105, 216]
+	  VariableName		  "carbon3in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_metal3"
+	  Position		  [1045, 234, 1105, 266]
+	  VariableName		  "metal3in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_reac3"
+	  Position		  [1185, 275, 1245, 305]
+	  VariableName		  "reac3"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "add KLa1"
+	  Ports			  [2, 1]
+	  Position		  [995, 322, 1030, 358]
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "carboncombiner"
+	  Ports			  [2, 1]
+	  Position		  [715, 312, 770, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "carboncombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "carboncombiner_asm2d"
+	      Parameters	      "CARBONSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "metalcombiner"
+	  Ports			  [2, 1]
+	  Position		  [845, 312, 900, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "metalcombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "metalcombiner_asm2d"
+	      Parameters	      "METALSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "out1"
+	  Position		  [1495, 333, 1525, 347]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "add KLa1"
+	  SrcPort		  1
+	  DstBlock		  "Bioreactor_3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Bioreactor_3"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "Store_reac3"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "in1"
+	  SrcPort		  1
+	  Points		  [0, -90]
+	  DstBlock		  "carboncombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "KLa3"
+	  SrcPort		  1
+	  Points		  [310, 0]
+	  Branch {
+	    DstBlock		    "Store_KLa3"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -125]
+	    DstBlock		    "add KLa1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "carboncombiner"
+	  SrcPort		  1
+	  Points		  [55, 0]
+	  DstBlock		  "metalcombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "metal3"
+	  SrcPort		  1
+	  Points		  [210, 0; 0, 5]
+	  Branch {
+	    DstBlock		    "metalcombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -5]
+	    DstBlock		    "Store_metal3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "metalcombiner"
+	  SrcPort		  1
+	  DstBlock		  "add KLa1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "carb3"
+	  SrcPort		  1
+	  Points		  [80, 0]
+	  Branch {
+	    DstBlock		    "carboncombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Store_carb3"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Bioreactor_4"
+      Ports		      [4, 1]
+      Position		      [860, 249, 900, 411]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Bioreactor_4"
+	Location		[2, 82, 1910, 1030]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "carb4"
+	  Position		  [585, 193, 615, 207]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "metal4"
+	  Position		  [585, 243, 615, 257]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "in1"
+	  Position		  [585, 418, 615, 432]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "KLa4"
+	  Position		  [585, 468, 615, 482]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  "Bioreactor_4"
+	  Ports			  [1, 1]
+	  Position		  [1055, 325, 1115, 355]
+	  FunctionName		  "asm2d"
+	  Parameters		  "XINIT4,PAR4,VOL4,SOSAT4, DECAY,TEMPMODEL, ACTIVATE"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_KLa4"
+	  Position		  [1050, 460, 1110, 490]
+	  VariableName		  "kla4in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_carb4"
+	  Position		  [1045, 184, 1105, 216]
+	  VariableName		  "carbon4in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_metal4"
+	  Position		  [1045, 234, 1105, 266]
+	  VariableName		  "metal4in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_reac4"
+	  Position		  [1185, 275, 1245, 305]
+	  VariableName		  "reac4"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "add KLa1"
+	  Ports			  [2, 1]
+	  Position		  [995, 322, 1030, 358]
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "carboncombiner"
+	  Ports			  [2, 1]
+	  Position		  [715, 312, 770, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "carboncombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "carboncombiner_asm2d"
+	      Parameters	      "CARBONSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "metalcombiner"
+	  Ports			  [2, 1]
+	  Position		  [845, 312, 900, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "metalcombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "metalcombiner_asm2d"
+	      Parameters	      "METALSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "out1"
+	  Position		  [1495, 333, 1525, 347]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "add KLa1"
+	  SrcPort		  1
+	  DstBlock		  "Bioreactor_4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Bioreactor_4"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "Store_reac4"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "in1"
+	  SrcPort		  1
+	  Points		  [0, -90]
+	  DstBlock		  "carboncombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "KLa4"
+	  SrcPort		  1
+	  Points		  [310, 0]
+	  Branch {
+	    DstBlock		    "Store_KLa4"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -125]
+	    DstBlock		    "add KLa1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "carboncombiner"
+	  SrcPort		  1
+	  Points		  [55, 0]
+	  DstBlock		  "metalcombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "metal4"
+	  SrcPort		  1
+	  Points		  [210, 0; 0, 5]
+	  Branch {
+	    DstBlock		    "metalcombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -5]
+	    DstBlock		    "Store_metal4"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "metalcombiner"
+	  SrcPort		  1
+	  DstBlock		  "add KLa1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "carb4"
+	  SrcPort		  1
+	  Points		  [80, 0]
+	  Branch {
+	    DstBlock		    "carboncombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Store_carb4"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Bioreactor_5"
+      Ports		      [4, 1]
+      Position		      [1020, 249, 1060, 411]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Bioreactor_5"
+	Location		[2, 82, 1910, 1030]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "carb5"
+	  Position		  [585, 193, 615, 207]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "metal5"
+	  Position		  [585, 243, 615, 257]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "in1"
+	  Position		  [585, 418, 615, 432]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "KLa5"
+	  Position		  [585, 468, 615, 482]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  "Bioreactor_5"
+	  Ports			  [1, 1]
+	  Position		  [1055, 325, 1115, 355]
+	  FunctionName		  "asm2d"
+	  Parameters		  "XINIT5,PAR5,VOL5,SOSAT5, DECAY, TEMPMODEL, ACTIVATE"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_KLa5"
+	  Position		  [1050, 460, 1110, 490]
+	  VariableName		  "kla5in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_carb1"
+	  Position		  [1045, 184, 1105, 216]
+	  VariableName		  "carbon5in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_metal1"
+	  Position		  [1045, 234, 1105, 266]
+	  VariableName		  "metal5in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_reac5"
+	  Position		  [1185, 275, 1245, 305]
+	  VariableName		  "reac5"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "add KLa1"
+	  Ports			  [2, 1]
+	  Position		  [995, 322, 1030, 358]
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "carboncombiner"
+	  Ports			  [2, 1]
+	  Position		  [715, 312, 770, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "carboncombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "carboncombiner_asm2d"
+	      Parameters	      "CARBONSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "metalcombiner"
+	  Ports			  [2, 1]
+	  Position		  [845, 312, 900, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "metalcombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "metalcombiner_asm2d"
+	      Parameters	      "METALSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "out1"
+	  Position		  [1495, 333, 1525, 347]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "add KLa1"
+	  SrcPort		  1
+	  DstBlock		  "Bioreactor_5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Bioreactor_5"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "Store_reac5"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "in1"
+	  SrcPort		  1
+	  Points		  [0, -90]
+	  DstBlock		  "carboncombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "KLa5"
+	  SrcPort		  1
+	  Points		  [310, 0]
+	  Branch {
+	    DstBlock		    "Store_KLa5"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -125]
+	    DstBlock		    "add KLa1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "carboncombiner"
+	  SrcPort		  1
+	  Points		  [55, 0]
+	  DstBlock		  "metalcombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "metal5"
+	  SrcPort		  1
+	  Points		  [210, 0; 0, 5]
+	  Branch {
+	    DstBlock		    "metalcombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -5]
+	    DstBlock		    "Store_metal1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "metalcombiner"
+	  SrcPort		  1
+	  DstBlock		  "add KLa1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "carb5"
+	  SrcPort		  1
+	  Points		  [80, 0]
+	  Branch {
+	    DstBlock		    "carboncombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Store_carb1"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Bioreactor_6"
+      Ports		      [4, 1]
+      Position		      [1135, 249, 1175, 411]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Bioreactor_6"
+	Location		[2, 82, 1910, 1030]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "carb6"
+	  Position		  [585, 193, 615, 207]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "metal6"
+	  Position		  [585, 243, 615, 257]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "in1"
+	  Position		  [585, 418, 615, 432]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "KLa6"
+	  Position		  [585, 468, 615, 482]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  "Bioreactor_6"
+	  Ports			  [1, 1]
+	  Position		  [1055, 325, 1115, 355]
+	  FunctionName		  "asm2d"
+	  Parameters		  "XINIT6,PAR6,VOL6,SOSAT6, DECAY, TEMPMODEL, ACTIVATE"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_KLa6"
+	  Position		  [1050, 460, 1110, 490]
+	  VariableName		  "kla6in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_carb1"
+	  Position		  [1045, 184, 1105, 216]
+	  VariableName		  "carbon6in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_metal1"
+	  Position		  [1045, 234, 1105, 266]
+	  VariableName		  "metal6in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_reac6"
+	  Position		  [1185, 275, 1245, 305]
+	  VariableName		  "reac6"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "add KLa1"
+	  Ports			  [2, 1]
+	  Position		  [995, 322, 1030, 358]
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "carboncombiner"
+	  Ports			  [2, 1]
+	  Position		  [715, 312, 770, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "carboncombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "carboncombiner_asm2d"
+	      Parameters	      "CARBONSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "metalcombiner"
+	  Ports			  [2, 1]
+	  Position		  [845, 312, 900, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "metalcombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "metalcombiner_asm2d"
+	      Parameters	      "METALSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "out1"
+	  Position		  [1495, 333, 1525, 347]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "add KLa1"
+	  SrcPort		  1
+	  DstBlock		  "Bioreactor_6"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Bioreactor_6"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "Store_reac6"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "in1"
+	  SrcPort		  1
+	  Points		  [0, -90]
+	  DstBlock		  "carboncombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "KLa6"
+	  SrcPort		  1
+	  Points		  [310, 0]
+	  Branch {
+	    DstBlock		    "Store_KLa6"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -125]
+	    DstBlock		    "add KLa1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "carboncombiner"
+	  SrcPort		  1
+	  Points		  [55, 0]
+	  DstBlock		  "metalcombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "metal6"
+	  SrcPort		  1
+	  Points		  [210, 0; 0, 5]
+	  Branch {
+	    DstBlock		    "metalcombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -5]
+	    DstBlock		    "Store_metal1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "metalcombiner"
+	  SrcPort		  1
+	  DstBlock		  "add KLa1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "carb6"
+	  SrcPort		  1
+	  Points		  [80, 0]
+	  Branch {
+	    DstBlock		    "carboncombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Store_carb1"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Bioreactor_7"
+      Ports		      [4, 1]
+      Position		      [1255, 249, 1295, 411]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Bioreactor_7"
+	Location		[2, 82, 1910, 1030]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "carb7"
+	  Position		  [585, 193, 615, 207]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "metal7"
+	  Position		  [585, 243, 615, 257]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "in1"
+	  Position		  [585, 418, 615, 432]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "KLa7"
+	  Position		  [585, 468, 615, 482]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  "Bioreactor_7"
+	  Ports			  [1, 1]
+	  Position		  [1055, 325, 1115, 355]
+	  FunctionName		  "asm2d"
+	  Parameters		  "XINIT7,PAR7,VOL7,SOSAT7, DECAY, TEMPMODEL, ACTIVATE"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_KLa7"
+	  Position		  [1050, 460, 1110, 490]
+	  VariableName		  "kla7in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_carb1"
+	  Position		  [1045, 184, 1105, 216]
+	  VariableName		  "carbon7in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_metal1"
+	  Position		  [1045, 234, 1105, 266]
+	  VariableName		  "metal7in"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_reac6"
+	  Position		  [1185, 275, 1245, 305]
+	  VariableName		  "reac7"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "add KLa1"
+	  Ports			  [2, 1]
+	  Position		  [995, 322, 1030, 358]
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "carboncombiner"
+	  Ports			  [2, 1]
+	  Position		  [715, 312, 770, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "carboncombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "carboncombiner_asm2d"
+	      Parameters	      "CARBONSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "metalcombiner"
+	  Ports			  [2, 1]
+	  Position		  [845, 312, 900, 343]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "metalcombiner"
+	    Location		    [208, 446, 557, 599]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "C_flow"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input"
+	      Position		      [25, 88, 55, 102]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      "Carboncombiner"
+	      Ports		      [1, 1]
+	      Position		      [145, 55, 230, 85]
+	      FunctionName	      "metalcombiner_asm2d"
+	      Parameters	      "METALSOURCECONC"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [95, 51, 100, 89]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      Position		      [270, 63, 300, 77]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "C_flow"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Carboncombiner"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carboncombiner"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Input"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -15]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "out1"
+	  Position		  [1495, 333, 1525, 347]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "add KLa1"
+	  SrcPort		  1
+	  DstBlock		  "Bioreactor_7"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Bioreactor_7"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "Store_reac6"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "in1"
+	  SrcPort		  1
+	  Points		  [0, -90]
+	  DstBlock		  "carboncombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "KLa7"
+	  SrcPort		  1
+	  Points		  [310, 0]
+	  Branch {
+	    DstBlock		    "Store_KLa7"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -125]
+	    DstBlock		    "add KLa1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "carboncombiner"
+	  SrcPort		  1
+	  Points		  [55, 0]
+	  DstBlock		  "metalcombiner"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "metal7"
+	  SrcPort		  1
+	  Points		  [210, 0; 0, 5]
+	  Branch {
+	    DstBlock		    "metalcombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -5]
+	    DstBlock		    "Store_metal1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "metalcombiner"
+	  SrcPort		  1
+	  DstBlock		  "add KLa1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "carb7"
+	  SrcPort		  1
+	  Points		  [80, 0]
+	  Branch {
+	    DstBlock		    "carboncombiner"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Store_carb1"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      Clock
+      Name		      "Clock"
+      Position		      [1535, 85, 1555, 105]
+      Decimation	      "10"
+    }
+    Block {
+      BlockType		      "S-Function"
+      Name		      "Flow_comb1"
+      Ports		      [1, 1]
+      Position		      [183, 455, 277, 485]
+      Orientation	      "up"
+      FunctionName	      "combiner_asm2d"
+    }
+    Block {
+      BlockType		      "S-Function"
+      Name		      "Flow_comb2"
+      Ports		      [1, 1]
+      Position		      [535, 364, 625, 396]
+      FunctionName	      "combiner_asm2d"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Flow_splitter"
+      Ports		      [2, 2]
+      Position		      [1395, 316, 1460, 369]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Flow_splitter"
+	Location		[2, 82, 1910, 1030]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.196850, 0.196850, 0.196850, 0.196850]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "flow"
+	  Position		  [20, 85, 40, 105]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "set_1"
+	  Position		  [160, 45, 180, 65]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1]
+	  Position		  [360, 27, 395, 83]
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [3, 1]
+	  Position		  [365, 152, 400, 218]
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Selector"
+	  Ports			  [1, 1]
+	  Position		  [120, 80, 150, 110]
+	  InputPortWidth	  "26"
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[20]"
+	  OutputSizes		  "1"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Selector1"
+	  Ports			  [1, 1]
+	  Position		  [115, 20, 145, 50]
+	  InputPortWidth	  "26"
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 ]"
+	  OutputSizes		  "1"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Selector2"
+	  Ports			  [1, 1]
+	  Position		  [115, 150, 145, 180]
+	  InputPortWidth	  "26"
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[21 22 23 24 25 26]"
+	  OutputSizes		  "1"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_rec"
+	  Position		  [460, 85, 520, 115]
+	  VariableName		  "rec"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_rec1"
+	  Position		  [500, 220, 560, 250]
+	  VariableName		  "rec1"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1]
+	  Position		  [220, 71, 250, 104]
+	  Inputs		  "-+"
+	  CollapseMode		  "All dimensions"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "flow1"
+	  Position		  [475, 45, 495, 65]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "flow2"
+	  Position		  [460, 175, 480, 195]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "flow"
+	  SrcPort		  1
+	  Points		  [55, 0]
+	  Branch {
+	    DstBlock		    "Selector1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 0]
+	    Branch {
+	      DstBlock		      "Selector"
+	      DstPort		      1
+	    }
+	    Branch {
+	      DstBlock		      "Selector2"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "flow1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 45]
+	    DstBlock		    "Store_rec"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "flow2"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 50]
+	    DstBlock		    "Store_rec1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "set_1"
+	  SrcPort		  1
+	  Points		  [5, 0]
+	  Branch {
+	    DstBlock		    "Mux"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, 25]
+	    DstBlock		    "Sum"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Selector"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  Points		  [45, 0; 0, 95]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Selector1"
+	  SrcPort		  1
+	  Points		  [170, 0]
+	  Branch {
+	    DstBlock		    "Mux"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 130]
+	    DstBlock		    "Mux1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Selector2"
+	  SrcPort		  1
+	  Points		  [25, 0]
+	  Branch {
+	    Points		    [95, 0; 0, -90]
+	    DstBlock		    "Mux"
+	    DstPort		    3
+	  }
+	  Branch {
+	    Points		    [0, 40]
+	    DstBlock		    "Mux1"
+	    DstPort		    3
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Hyd_delay"
+      Ports		      [1, 1]
+      Position		      [645, 365, 700, 395]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Hyd_delay"
+	Location		[2, 82, 1910, 1030]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [225, 228, 255, 242]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 4]
+	  Position		  [630, 403, 635, 502]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "[19,1,1,5]"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  "Hyd_delay"
+	  Ports			  [1, 1]
+	  Position		  [360, 221, 465, 249]
+	  FunctionName		  "hyddelay_asm2d"
+	  Parameters		  "XINITDELAY,PAR1, T"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [4, 1]
+	  Position		  [915, 400, 930, 505]
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  Ports			  [2, 1]
+	  Position		  [730, 304, 775, 351]
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	  RndMeth		  "Floor"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product1"
+	  Ports			  [2, 1]
+	  Position		  [735, 523, 780, 572]
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	  RndMeth		  "Floor"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_ASinput"
+	  Position		  [1100, 440, 1180, 470]
+	  VariableName		  "ASinput"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [625, 228, 655, 242]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Hyd_delay"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Hyd_delay"
+	  SrcPort		  1
+	  Points		  [30, 0]
+	  Branch {
+	    DstBlock		    "Out"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 220]
+	    DstBlock		    "Demux"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [75, 0]
+	  DstBlock		  "Product"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  Points		  [0, 85]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Store_ASinput"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  4
+	  Points		  [80, 0]
+	  DstBlock		  "Product1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Product1"
+	  SrcPort		  1
+	  Points		  [0, -60]
+	  DstBlock		  "Mux"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  3
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [15, 0]
+	  Branch {
+	    Points		    [0, 120]
+	    DstBlock		    "Product1"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [25, 0]
+	    Branch {
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Branch {
+	      Points		      [0, -100]
+	      DstBlock		      "Product"
+	      DstPort		      2
+	    }
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "KLa1"
+      Position		      [250, 385, 270, 405]
+      Value		      "KLa1"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "KLa2"
+      Position		      [340, 385, 360, 405]
+      Value		      "KLa2"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "KLa3"
+      Position		      [725, 380, 745, 400]
+      Value		      "KLa3"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "KLa4"
+      Position		      [820, 380, 840, 400]
+      Value		      "KLa4"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "KLa5"
+      Position		      [980, 380, 1000, 400]
+      Value		      "KLa5"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "KLa6"
+      Position		      [1095, 380, 1115, 400]
+      Value		      "KLa6"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "KLa7"
+      Position		      [1215, 380, 1235, 400]
+      Value		      "KLa7"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      FromWorkspace
+      Name		      "Plant input"
+      Position		      [475, 690, 565, 720]
+      Orientation	      "left"
+      VariableName	      "DRYINFLUENT"
+      OutputAfterFinalValue   "Holding final value"
+    }
+    Block {
+      BlockType		      FromWorkspace
+      Name		      "Plant input "
+      Position		      [475, 770, 565, 800]
+      Orientation	      "left"
+      VariableName	      "STORMINFLUENT"
+      OutputAfterFinalValue   "Holding final value"
+    }
+    Block {
+      BlockType		      FromWorkspace
+      Name		      "Plant input1"
+      Position		      [475, 740, 565, 770]
+      Orientation	      "left"
+      ShowName		      off
+      VariableName	      "RAININFLUENT"
+      OutputAfterFinalValue   "Holding final value"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Qin and Qr"
+      Ports		      [2, 1]
+      Position		      [210, 505, 250, 545]
+      Orientation	      "up"
+      Inputs		      "2"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Qin, Qr and Qintr"
+      Ports		      [2, 1]
+      Position		      [475, 360, 515, 400]
+      Inputs		      "2"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Qintr"
+      Position		      [1330, 385, 1350, 405]
+      Value		      "Qintr"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Qr"
+      Position		      [1060, 652, 1105, 678]
+      Orientation	      "left"
+      Value		      "Qin0"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Qw"
+      Position		      [1030, 670, 1050, 690]
+      Orientation	      "left"
+      Value		      "385"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Select input"
+      Ports		      [2, 1]
+      Position		      [405, 659, 435, 721]
+      Orientation	      "left"
+      BackgroundColor	      "red"
+      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
+      SourceType	      "Manual Switch"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      sw		      "0"
+      action		      "0"
+      varsize		      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Select input "
+      Ports		      [2, 1]
+      Position		      [405, 739, 435, 801]
+      Orientation	      "left"
+      BackgroundColor	      "red"
+      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
+      SourceType	      "Manual Switch"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      sw		      "0"
+      action		      "0"
+      varsize		      off
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Settler_1D"
+      Ports		      [3, 1]
+      Position		      [960, 590, 1010, 640]
+      Orientation	      "left"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Settler_1D"
+	Location		[508, 732, 975, 937]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "feed"
+	  Position		  [405, 93, 435, 107]
+	  Orientation		  "left"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Qr"
+	  Position		  [405, 123, 435, 137]
+	  Orientation		  "left"
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Qw"
+	  Position		  [405, 153, 435, 167]
+	  Orientation		  "left"
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "RAS\nunderflow"
+	  Ports			  [1, 1]
+	  Position		  [100, 115, 130, 145]
+	  Orientation		  "left"
+	  InputPortWidth	  "316"
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26]"
+	  OutputSizes		  "1"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  "Settler_1D"
+	  Ports			  [1, 1]
+	  Position		  [200, 115, 285, 145]
+	  Orientation		  "left"
+	  FunctionName		  "settler1d_asm2d"
+	  Parameters		  "SETTLERINIT2D,SETTLERPAR2D,DIM2D,LAYER2D,ASM2DPAR, DECAY, SETTLER, TEMPMODEL"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_feed"
+	  Position		  [280, 50, 340, 80]
+	  Orientation		  "left"
+	  VariableName		  "feed"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "Store_settler"
+	  Position		  [85, 55, 145, 85]
+	  Orientation		  "left"
+	  VariableName		  "settler"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "add Qr and Qw"
+	  Ports			  [3, 1]
+	  Position		  [325, 110, 365, 150]
+	  Orientation		  "left"
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "output"
+	  Position		  [30, 123, 60, 137]
+	  Orientation		  "left"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "add Qr and Qw"
+	  SrcPort		  1
+	  DstBlock		  "Settler_1D"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Qr"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "add Qr and Qw"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Qw"
+	  SrcPort		  1
+	  Points		  [0, -15]
+	  DstBlock		  "add Qr and Qw"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "feed"
+	  SrcPort		  1
+	  Points		  [-10, 0]
+	  Branch {
+	    Points		    [0, 15]
+	    DstBlock		    "add Qr and Qw"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -35]
+	    DstBlock		    "Store_feed"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "RAS\nunderflow"
+	  SrcPort		  1
+	  DstBlock		  "output"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Settler_1D"
+	  SrcPort		  1
+	  Points		  [-25, 0]
+	  Branch {
+	    DstBlock		    "RAS\nunderflow"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -60]
+	    DstBlock		    "Store_settler"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      Display
+      Name		      "Simulation time"
+      Ports		      [1]
+      Position		      [1580, 80, 1670, 110]
+      Decimation	      "1"
+      Lockdown		      off
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "Store_in"
+      Position		      [240, 750, 300, 780]
+      VariableName	      "in"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Array"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "carb1"
+      Position		      [250, 265, 270, 285]
+      NamePlacement	      "alternate"
+      Value		      "carb1"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "carb2"
+      Position		      [340, 265, 360, 285]
+      NamePlacement	      "alternate"
+      Value		      "carb2"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "carb3"
+      Position		      [725, 260, 745, 280]
+      NamePlacement	      "alternate"
+      Value		      "carb3"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "carb4"
+      Position		      [820, 260, 840, 280]
+      NamePlacement	      "alternate"
+      Value		      "carb4"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "carb5"
+      Position		      [980, 260, 1000, 280]
+      NamePlacement	      "alternate"
+      Value		      "carb5"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "carb6"
+      Position		      [1095, 260, 1115, 280]
+      NamePlacement	      "alternate"
+      Value		      "carb6"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "carb7"
+      Position		      [1215, 260, 1235, 280]
+      NamePlacement	      "alternate"
+      Value		      "carb7"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "metal1"
+      Position		      [250, 305, 270, 325]
+      NamePlacement	      "alternate"
+      Value		      "metal1"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "metal2"
+      Position		      [340, 305, 360, 325]
+      NamePlacement	      "alternate"
+      Value		      "metal2"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "metal3"
+      Position		      [725, 300, 745, 320]
+      NamePlacement	      "alternate"
+      Value		      "metal3"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "metal4"
+      Position		      [820, 300, 840, 320]
+      NamePlacement	      "alternate"
+      Value		      "metal4"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "metal5"
+      Position		      [980, 300, 1000, 320]
+      NamePlacement	      "alternate"
+      Value		      "metal5"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "metal6"
+      Position		      [1095, 300, 1115, 320]
+      NamePlacement	      "alternate"
+      Value		      "metal6"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "metal7"
+      Position		      [1215, 300, 1235, 320]
+      NamePlacement	      "alternate"
+      Value		      "metal7"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Line {
+      SrcBlock		      "Qin and Qr"
+      SrcPort		      1
+      DstBlock		      "Flow_comb1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Clock"
+      SrcPort		      1
+      DstBlock		      "Simulation time"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Plant input"
+      SrcPort		      1
+      DstBlock		      "Select input"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      " "
+      SrcPort		      1
+      DstBlock		      "Select input"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "carb1"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "KLa1"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_1"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Plant input1"
+      SrcPort		      1
+      DstBlock		      "Select input "
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Plant input "
+      SrcPort		      1
+      DstBlock		      "Select input "
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Select input"
+      SrcPort		      1
+      Points		      [-5, 0; 0, 25]
+      DstBlock		      " Select input"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Select input "
+      SrcPort		      1
+      Points		      [-5, 0; 0, -25]
+      DstBlock		      " Select input"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      " Select input"
+      SrcPort		      1
+      Points		      [-115, 0]
+      Branch {
+	Points			[0, 35]
+	DstBlock		"Store_in"
+	DstPort			1
+      }
+      Branch {
+	DstBlock		"Qin and Qr"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Qin, Qr and Qintr"
+      SrcPort		      1
+      DstBlock		      "Flow_comb2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Flow_comb2"
+      SrcPort		      1
+      DstBlock		      "Hyd_delay"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "metal1"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_1"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "KLa2"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_2"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "carb2"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "metal2"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_2"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Bioreactor_1"
+      SrcPort		      1
+      Points		      [15, 0; 0, 20]
+      DstBlock		      "Bioreactor_2"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Bioreactor_2"
+      SrcPort		      1
+      Points		      [15, 0; 0, 55]
+      DstBlock		      "Qin, Qr and Qintr"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "KLa3"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_3"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "carb3"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "metal3"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_3"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Hyd_delay"
+      SrcPort		      1
+      Points		      [15, 0; 0, -30]
+      DstBlock		      "Bioreactor_3"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "KLa4"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_4"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "carb4"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "metal4"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_4"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Bioreactor_3"
+      SrcPort		      1
+      Points		      [10, 0; 0, 20]
+      DstBlock		      "Bioreactor_4"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "KLa5"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_5"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "carb5"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_5"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "metal5"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_5"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Bioreactor_4"
+      SrcPort		      1
+      Points		      [55, 0; 0, 20]
+      DstBlock		      "Bioreactor_5"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "KLa6"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_6"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "carb6"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_6"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "metal6"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_6"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Bioreactor_5"
+      SrcPort		      1
+      Points		      [25, 0; 0, 20]
+      DstBlock		      "Bioreactor_6"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "KLa7"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_7"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "carb7"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_7"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "metal7"
+      SrcPort		      1
+      DstBlock		      "Bioreactor_7"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Bioreactor_6"
+      SrcPort		      1
+      Points		      [30, 0; 0, 20]
+      DstBlock		      "Bioreactor_7"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Settler_1D"
+      SrcPort		      1
+      Points		      [-715, 0]
+      DstBlock		      "Qin and Qr"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Qw"
+      SrcPort		      1
+      DstBlock		      "Settler_1D"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Qr"
+      SrcPort		      1
+      Points		      [0, -50]
+      DstBlock		      "Settler_1D"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Flow_comb1"
+      SrcPort		      1
+      Points		      [0, -95]
+      DstBlock		      "Bioreactor_1"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Qintr"
+      SrcPort		      1
+      Points		      [10, 0; 0, -40]
+      DstBlock		      "Flow_splitter"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Bioreactor_7"
+      SrcPort		      1
+      DstBlock		      "Flow_splitter"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Flow_splitter"
+      SrcPort		      2
+      Points		      [20, 0; 0, 245]
+      DstBlock		      "Settler_1D"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Flow_splitter"
+      SrcPort		      1
+      Points		      [20, 0; 0, -175; -1025, 0]
+      DstBlock		      "Qin, Qr and Qintr"
+      DstPort		      1
+    }
+  }
+}
