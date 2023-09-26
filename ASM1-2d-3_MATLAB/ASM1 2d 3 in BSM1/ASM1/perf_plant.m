@@ -461,6 +461,11 @@ xlabel('time (days)')
 ylabel('Total nitrogen concentration in effluent (mg N/l)')
 title('Effluent total nitrogen and limit value')
 hold off
+% Define the file path as a variable
+path = '/Users/aya/github/WWDR/ASM1-2d-3_MATLAB/ASM1 2d 3 in BSM1/ASM1/ASM_database/Iteration_plots';
+% Save the figure
+n = 3; % Figure number, matching the figure(3) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 figure(4)
 plot(time(1:(end-1)),totalCODevec2)
@@ -470,6 +475,9 @@ xlabel('time (days)')
 ylabel('Total COD concentration in effluent (mg COD/l)')
 title('Effluent total COD and limit value')
 hold off
+% Save the figure
+n = 4; % Figure number, matching the figure(4) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 figure(5)
 plot(time(1:(end-1)),SNHevec2)
@@ -479,6 +487,9 @@ xlabel('time (days)')
 ylabel('Ammonia concentration in effluent (mg N/l)')
 title('Effluent total ammonia and limit value')
 hold off
+% Save the figure
+n = 5; % Figure number, matching the figure(5) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 figure(6)
 plot(time(1:(end-1)),TSSevec2)
@@ -488,6 +499,9 @@ xlabel('time (days)')
 ylabel('Suspended solids concentration in effluent (mg SS/l)')
 title('Effluent suspended solids and limit value')
 hold off
+% Save the figure
+n = 6; % Figure number, matching the figure(6) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 figure(7)
 plot(time(1:(end-1)),BOD5evec2)
@@ -497,11 +511,17 @@ xlabel('time (days)')
 ylabel('BOD5 concentration in effluent (mg/l)')
 title('Effluent BOD5 and limit value')
 hold off
+% Save the figure
+n = 7; % Figure number, matching the figure(7) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 figure(8)
 plot(time(1:(end-1)),TSSwasteconc.*Qwasteflow)
 xlabel('time (days)')
 ylabel('Instantaneous sludge wastage rate (kg SS/d)')
+% Save the figure
+n = 8; % Figure number, matching the figure(8) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 figure(9)
 plot(time(1:(end-1)),EQvecinst./1000)
@@ -510,6 +530,9 @@ plot(time(1:(end-1)),EQvecinst_new./1000,'r')
 xlabel('time (days)')
 ylabel('Instantaneous Effluent Quality index (kg poll.units/d)')
 hold off
+% Save the figure
+n = 9; % Figure number, matching the figure(9) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 figure(10)
 plot(time(1:(end-1)),pumpenergyvec)
@@ -518,6 +541,9 @@ plot(time(1:(end-1)),pumpenergyvec_new,'r')
 xlabel('time (days)')
 ylabel('Instantaneous pumping energy (kWh/d)')
 hold off
+% Save the figure
+n = 10; % Figure number, matching the figure(10) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 figure(11)
 plot(time(1:(end-1)),airenergyvec)
@@ -526,6 +552,9 @@ plot(time(1:(end-1)),airenergyvec_new,'r')
 xlabel('time (days)')
 ylabel('Instantaneous aeration energy (kWh/d)')
 hold off
+% Save the figure
+n = 11; % Figure number, matching the figure(11) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
  figure(12)
  plot(time(1:(end-1))-starttime,carbonmassvec,'b','LineWidth',1.5)
@@ -552,6 +581,10 @@ title('Ordered effluent S_N_H concentrations with 95% percentile','FontSize',10,
 xlim([0 105])
 set(gca,'LineWidth',1.5,'FontSize',10,'FontWeight','bold')
 hold off
+% Save the figure
+n = 13; % Figure number, matching the figure(13) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
+
 
 figure(14)
 plot(xvalues,TNeffsort,'b','LineWidth',1.5)
@@ -564,6 +597,9 @@ title('Ordered effluent TN concentrations with 95% percentile','FontSize',10,'Fo
 xlim([0 105])
 set(gca,'LineWidth',1.5,'FontSize',10,'FontWeight','bold')
 hold off
+% Save the figure
+n = 14; % Figure number, matching the figure(14) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 figure(15)
 plot(xvalues,TSSeffsort,'b','LineWidth',1.5)
@@ -576,6 +612,9 @@ title('Ordered effluent TSS concentrations with 95% percentile','FontSize',10,'F
 xlim([0 105])
 set(gca,'LineWidth',1.5,'FontSize',10,'FontWeight','bold')
 hold off
+% Save the figure
+n = 15; % Figure number, matching the figure(15) line
+saveas(gcf, sprintf('%s/Figure_%d_iteration_%d.png', path, n, iteration));
 
 function [outvector] = changeScalarToVector(invariable,outvecsize)
 %Vector to modify variables like Kla1in, carb1in etc to vectors from

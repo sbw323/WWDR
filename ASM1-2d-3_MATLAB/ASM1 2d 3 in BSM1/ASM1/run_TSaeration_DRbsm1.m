@@ -54,3 +54,9 @@ disp(' ')
 save workspace_dynamic
 
 Data_writer
+Data_writer_reac
+perf_plant
+
+% Code to close the Simulink model
+close_system('DRbenchmarkss', 'force');
+close_system('DRbenchmark', 'force');

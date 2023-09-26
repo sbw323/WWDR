@@ -39,9 +39,12 @@ Tempevec =settlerpart(:,15).*Qevec;
 % Create a matrix from all the vectors
 settler_data = [SIevec, SSevec, XIevec, XSevec, XBHevec, XBAevec, XPevec, SOevec, SNOevec, SNHevec, SNDevec, XNDevec, SALKevec, TSSevec, Tempevec];
 
+% Determine full folder path
+folder_path = '/Users/aya/github/WWDR/ASM1-2d-3_MATLAB/ASM1 2d 3 in BSM1/ASM1/ASM_database/';
+
 % Determine iteration number for filename
 % Assuming "iteration" variable exists in the workspace and represents the current iteration
-filename = sprintf('settler_data_iteration_%d.csv', iteration);
+filename = sprintf('%ssettler_data_iteration_%d.csv', folder_path, iteration);
 
 % Save to CSV
 if exist('writematrix', 'file')  % for MATLAB R2019a or newer
