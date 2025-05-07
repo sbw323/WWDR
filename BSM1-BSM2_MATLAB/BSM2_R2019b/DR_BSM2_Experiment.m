@@ -7,7 +7,7 @@ pause_time = 14;      % Segment duration [days]
 iteration = 1;        % Current iteration (manually set or loaded)
 ss_done = false;
 cal_pause_done = false;
-segment_pause_done = false;
+DR_pause_done = false;
 recal_segment_pause_done = false;
 
 % === Setup Steady State === 
@@ -90,16 +90,16 @@ while true
         disp('Experimental DR setpoints loaded into workspace.');
 
         % Resume simulation
-        set_param(model, 'SimulationCommand', 'continue');
+        set_param(model, 'SimulationCommand', 'start');
         disp('Simulation resumed after cal_time pause.');
 
         cal_pause_done = true;
     end
 
     % === STEP 2: Pause at iteration-based target ===
-    if cal_pause_done && ~segment_pause_done && sim_time >= pause_target
+    if cal_pause_done && ~DR_pause_done && sim_time >= pause_target
         set_param(model, 'SimulationCommand', 'pause');
-        disp(['Simulation paused at pause_target = ', num2str(sim_time), ' days.']);
+        disp(['Simulation paused at pause_target = ', num2str(sim_time), ' days. DR experiment no ',num2str(iteration), ' completed.']);
 
         while ~strcmp(get_param(model, 'SimulationStatus'), 'paused')
             pause(0.1);
@@ -133,18 +133,18 @@ while true
         load('KLa3_Setpoints_BSM2_nominal.mat');
         load('KLa4_Setpoints_BSM2_nominal.mat');
         load('KLa5_Setpoints_BSM2_nominal.mat');
-        disp('Nominal DR setpoints loaded into workspace.');
+        disp('Nominal DR setpoints loaded into workspace. Preparing for next DR simulation.');
 
         set_param(model, 'SimulationCommand', 'start');
         disp(['Simulation resumed. Next pause scheduled at t = ', num2str(pause_target), ' days.']);
 
-        segment_pause_done = true;
+        DR_pause_done = true;
         recal_segment_pause_done = false;
     end
 
-    if cal_pause_done && segment_pause_done && ~recal_segment_pause_done && sim_time >= pause_target
+    if cal_pause_done && DR_pause_done && ~recal_segment_pause_done && sim_time >= pause_target
         set_param(model, 'SimulationCommand', 'pause');
-        disp(['Simulation paused at pause_target = ', num2str(sim_time), ' days.']);
+        disp(['Simulation paused at pause_target = ', num2str(sim_time), ' days. Beginning DR experiment no ', num2str(iteration+1)]);
 
         while ~strcmp(get_param(model, 'SimulationStatus'), 'paused')
             pause(0.1);
@@ -157,6 +157,20 @@ while true
         % Save steady state or checkpoint
         stateset_bsm2;
         save workspace_dynamic
+        % Close model
+        bdclose(model);
+        % Clear workspace
+        clearvars -except model simend pause_time iteration cal_time ss_done cal_pause_done segment_pause_done recal_segment_pause_done stepback_target
+        % Open model
+        load_system(model);
+        open(model);
+        % Load workspace at previous segment pause
+        load workspace_dynamic
+        stateset_bsm2;
+        % Set model time appropriately
+        set_param(model, 'StartTime', num2str(sim_time));
+        output_expr = sprintf('[%g:1/96:%g]', sim_time, simend);
+        set_param(model, 'outputtimes', output_expr);  
 
         % === STEP 3-A: Load experimental input while paused ===
         clear 'KLa3_Setpoints_BSM2' 'KLa4_Setpoints_BSM2' 'KLa5_Setpoints_BSM2' 'kla3in' 'kla4in' 'kla5in'
@@ -165,10 +179,10 @@ while true
         load('KLa5_Setpoints_BSM2_experiment.mat');
         disp('Experimental DR setpoints loaded into workspace.');
 
-        set_param(model, 'SimulationCommand', 'continue');
+        set_param(model, 'SimulationCommand', 'start');
         disp(['Simulation resumed. Next pause scheduled at t = ', num2str(pause_target), ' days.']);
 
-        segment_pause_done = false;
+        DR_pause_done = false;
         recal_segment_pause_done = true;
     end
 
