@@ -8,7 +8,7 @@ storageinit_bsm2;
 adm1init_bsm2;  % also includes settings for AS/AD and AD/AS interfaces
 reginit_bsm2;
 load ./Influent_data/sensornoise_bsm2;
-sensorinit_bsm2;
+% sensorinit_bsm2;
 
 load ./Influent_data/constinfluent_bsm2;
 load ./Influent_data/dyninfluent_bsm2;

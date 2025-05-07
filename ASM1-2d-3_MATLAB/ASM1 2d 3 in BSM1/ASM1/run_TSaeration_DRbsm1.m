@@ -17,7 +17,7 @@ disp('Running BSM1 to steady state! Solver = ode15s and Simulink model = benchma
 disp('**************************************************************************')
 disp(' ')
 options = simset('solver','ode15s','Reltol',1e-5,'AbsTol',1e-8,'refine',1); %Define simulation options for constant influent
-sim('DRbenchmarkss',[0 200],options); %Simulate the BSM2 under constant influent
+sim('DRbenchmarkss',[0 200],options); %Simulate the BSM1 under constant influent
 
 disp('Steady state achieved. Initializing all state variables to steady state values.')
 disp(' ')
@@ -33,7 +33,7 @@ start=clock;
 disp(['Start time for simulation (hour:min:sec) = ', num2str(round(start(4:6)))]); %Display simulation start time 
 
 options=simset('solver','ode45','Reltol',1e-5,'AbsTol',1e-8,'outputpoints','specified'); %Define simulation options for dynamic influent 
-sim('DRbenchmark',outputtimes,options); %Simulate the BSM2 under dynamic influent 
+sim('DRbenchmark',outputtimes,options); %Simulate the BSM1 under dynamic influent 
 stateset
 
 disp('Simulating BSM1 with dynamic influent (ii) in closed loop (Tempmodel = 1)! Solver = ode45 and Simulink model = benchmark')
@@ -43,7 +43,7 @@ start=clock;
 disp(['Start time for simulation (hour:min:sec) = ', num2str(round(start(4:6)))]); %Display simulation start time 
 
 options=simset('solver','ode45','Reltol',1e-5,'AbsTol',1e-8,'outputpoints','specified'); %Define simulation options for dynamic influent 
-sim('DRbenchmark',outputtimes,options); %Simulate the BSM2 under dynamic influent 
+sim('DRbenchmark',outputtimes,options); %Simulate the BSM1 under dynamic influent 
 
 
 stop=clock;

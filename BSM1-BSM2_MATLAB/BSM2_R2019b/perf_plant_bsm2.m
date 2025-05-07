@@ -20,7 +20,8 @@ disp('***** Plant evaluation of BSM2 system initiated *****')
 disp(['Start time for BSM2 evaluation (hour:min:sec) = ', num2str(round(start(4:6)))]); %Display start time of evaluation
 disp(' ')
 
-plotflag = 1;
+riskflag = 0;
+plotflag = 0;
 
 starttime = 245; 
 stoptime = 609;
@@ -1000,17 +1001,18 @@ if plotflag==1
 end
 
 % Call the 'fuzzified' expert module to detect settling problems
-disp(' ')
-disp('Note: Calculation of risk indices may require 15-60 minutes of CPU time.')
-yes = input('Do you want to continue? (yes = 1, no = 0)  >> ');
-disp(' ')
-if yes > 0.5
-   disp('Calculation of BSM2 risk indices has been initiated!')
-   disp(' ')
-   perf_risk_bsm2;
-else
-   disp('Calculation of BSM2 risk indices has been aborted!')
-   disp(' ')
+if riskflag==   1    
+    disp(' ')
+    disp('Note: Calculation of risk indices may require 15-60 minutes of CPU time.')
+    yes = input('Do you want to continue? (yes = 1, no = 0)  >> ');
+    disp(' ')
+    if yes > 0.5
+       disp('Calculation of BSM2 risk indices has been initiated!')
+       disp(' ')
+       perf_risk_bsm2;
+    else
+       disp('Calculation of BSM2 risk indices has been aborted!')
+       disp(' ')
 end
 
 stop=clock;
