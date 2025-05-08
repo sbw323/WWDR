@@ -1,6 +1,7 @@
 init_bsm2_DR;
 ss = 'bsm2_ss';
 model = 'DR_bsm2_ol';
+Qr_DR = Qr * 1.5;
 simend = 609;
 cal_time = 25;       % Absolute first pause point [days]
 pause_time = 14;      % Segment duration [days]
@@ -23,6 +24,7 @@ if ~ss_done
     % When stopped, update states and mark steady state as complete
     stateset_bsm2;
     ss_done = true;
+    disp(['Simulation started. Will pause first at cal_time = ', num2str(cal_time), ' days.']);
 end
 
 % === Calculate first iteration-based pause time ===
@@ -30,8 +32,8 @@ pause_target = cal_time + pause_time * iteration;
 
 % === Load and configure model ===
 DR_bsm2_ol;
-%load_system(model);
-set_param(model, 'StopTime', num2str(simend)); % simulate far enough
+set_param(model, 'StartTime', '0'); 
+set_param(model, 'StopTime', num2str(simend)); 
 set_param(model, 'Solver', 'ode45');
 set_param(model, 'SimulationMode', 'normal');
 
@@ -45,7 +47,6 @@ while ~strcmp(get_param(model, 'SimulationStatus'), 'running')
     pause(0.2);
 end
 
-disp(['Simulation started. Will pause first at cal_time = ', num2str(cal_time), ' days.']);
 
 % === Main simulation monitoring loop ===
 while true
@@ -55,8 +56,14 @@ while true
     end
 
     sim_time = get_param(model, 'SimulationTime');
+    % === Check for end of simulation ===
+    if sim_time >= simend
+        set_param(model, 'SimulationCommand', 'stop');
+        disp(['Simulation reached end time at t = ', num2str(sim_time), ' days. Ending loop.']);
+        break;
+    end
 
-    % === STEP 1: Priority pause at cal_time ===
+    % === STEP 1: Calibrate model to puesdo-steady state ===
     if ~cal_pause_done && sim_time >= cal_time
         set_param(model, 'SimulationCommand', 'pause');
         disp(['Simulation paused at cal_time = ', num2str(sim_time), ' days.']);
@@ -71,7 +78,7 @@ while true
         % Close model
         bdclose(model);
         % Clear workspace
-        clearvars -except model simend pause_time iteration cal_time ss_done cal_pause_done segment_pause_done recal_segment_pause_done stepback_target
+        clearvars -except model simend pause_time iteration cal_time ss_done segment_pause_done recal_segment_pause_done stepback_target sim_time cal_pause_done
         % Open model
         load_system(model);
         open(model);
@@ -105,7 +112,7 @@ while true
             pause(0.1);
         end
         
-        Data_writer
+        Data_writer_newer
         Data_writer_reac
         perf_plant_DRbsm2
         figure_writer
@@ -116,7 +123,7 @@ while true
         % Close model
         bdclose(model);
         % Clear workspace
-        clearvars -except model simend pause_time iteration cal_time ss_done cal_pause_done segment_pause_done recal_segment_pause_done stepback_target
+        clearvars -except model simend pause_time iteration cal_time ss_done segment_pause_done recal_segment_pause_done stepback_target sim_time cal_pause_done
         % Open model
         load_system(model);
         open(model);
@@ -149,6 +156,10 @@ while true
         while ~strcmp(get_param(model, 'SimulationStatus'), 'paused')
             pause(0.1);
         end
+        Data_writer_nominal_reac
+        Data_writer_nominal
+        perf_plant_DRbsm2
+        figure_writer_nominal
 
         % Prepare next iteration
         iteration = iteration + 1;
@@ -160,7 +171,7 @@ while true
         % Close model
         bdclose(model);
         % Clear workspace
-        clearvars -except model simend pause_time iteration cal_time ss_done cal_pause_done segment_pause_done recal_segment_pause_done stepback_target
+        clearvars -except model simend pause_time iteration cal_time ss_done segment_pause_done recal_segment_pause_done stepback_target sim_time cal_pause_done
         % Open model
         load_system(model);
         open(model);
@@ -169,7 +180,9 @@ while true
         stateset_bsm2;
         % Set model time appropriately
         set_param(model, 'StartTime', num2str(sim_time));
-        output_expr = sprintf('[%g:1/96:%g]', sim_time, simend);
+        t_start = ceil(sim_time * 96) / 96;
+        t_stop  = floor(simend * 96) / 96;
+        output_expr = sprintf('[%g:1/96:%g]', t_start, t_stop);
         set_param(model, 'outputtimes', output_expr);  
 
         % === STEP 3-A: Load experimental input while paused ===
@@ -190,4 +203,4 @@ while true
 end
 
 % === Simulation Finished ===
-disp('Simulation finished.');
+disp('Experiment completed finished.');

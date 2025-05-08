@@ -2,7 +2,7 @@
 
 % Assume 't' is a uniformly sampled vector with at least 1345 entries
 stopindex = length(t);                     % Last index of t
-startindex = stopindex - 1344;             % 1344 steps before end
+startindex = stopindex - 14;             % 1344 steps before end
 
 % Safety check (optional)
 if startindex < 1
@@ -66,7 +66,7 @@ end
 
 % Determine iteration number for filename
 % Assuming "iteration" variable exists in the workspace and represents the current iteration
-filename = sprintf('%ssettler_data_iteration_%d.csv', folder_path, iteration);
+filename = sprintf('%ssettler_data_DR_iteration_%d.csv', folder_path, iteration);
 
 % Save to CSV
 if exist('writematrix', 'file')  % for MATLAB R2019a or newer

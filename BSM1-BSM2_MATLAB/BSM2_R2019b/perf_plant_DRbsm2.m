@@ -15,22 +15,24 @@
 close all
 
 start=clock; 
-disp(' ')
-disp('***** Plant evaluation of BSM2 system initiated *****')
-disp(['Start time for BSM2 evaluation (hour:min:sec) = ', num2str(round(start(4:6)))]); %Display start time of evaluation
-disp(' ')
+% disp(' ')
+% disp('***** Plant evaluation of BSM2 system initiated *****')
+% disp(['Start time for BSM2 evaluation (hour:min:sec) = ', num2str(round(start(4:6)))]); %% display start time of evaluation
+% disp(' ')
 
 riskflag = 0;
 plotflag = 1;
 
-% Assume 't' is a uniformly sampled vector with at least 1345 entries
-stopindex = length(t);                     % Last index of t
-startindex = stopindex - 1344;             % 1344 steps before end
+% Index bounds
+stopindex = length(t);
 
-% Safety check (optional)
-if startindex < 1
-    error('Not enough data points in t to go back 1344 steps.');
+if stopindex < 1344
+    startindex = min(t);  % or 1 if you meant index, not time
+    warning('Not enough data points in t to go back 1344 steps. Using startindex = min(t).');
+else
+    startindex = stopindex - 1344 + 1;
 end
+
 
 % Define time window
 stoptime = t(stopindex);                   % Last time value
@@ -244,7 +246,7 @@ if (ACTIVATE > 0.5)
    Effload=[SIeload SSeload XIeload XSeload XBHeload XBAeload XPeload SOeload SNOeload SNHeload SNDeload XNDeload SALKeload TSSeload Tempeload totalNKjeload totalNeload totalCODeload BOD5eload DUMMY1eload DUMMY2eload DUMMY3eload DUMMY4eload DUMMY5eload ]'./(1000*totalt);
 end
 
-% Sludge disposal concentrations
+% Sludge % disposal concentrations
 Qsvec = sludgepart(:,15).*timevector;
 SIsvec = sludgepart(:,1).*Qsvec;
 SSsvec = sludgepart(:,2).*Qsvec;     
@@ -518,173 +520,173 @@ SNHeffprctile=prctile(SNHevec2,95);
 TNeffprctile=prctile(totalNevec2,95);
 TSSeffprctile=prctile(TSSevec2,95);
 
-disp(' ')
-disp(['Overall plant performance during time ',num2str(time_eval(1)),' to ',num2str(time_eval(end)),' days'])
-disp('*****************************************************')
-disp(' ')
-disp('Effluent average concentrations based on load')
-disp('---------------------------------------------')
-disp(['Effluent average flow rate = ',num2str(Qeav),' m3/d'])
-disp(['Effluent average SI conc = ',num2str(SIeav),' g COD/m3'])
-disp(['Effluent average SS conc = ',num2str(SSeav),' g COD/m3'])
-disp(['Effluent average XI conc = ',num2str(XIeav),' g COD/m3'])
-disp(['Effluent average XS conc = ',num2str(XSeav),' g COD/m3'])
-disp(['Effluent average XBH conc = ',num2str(XBHeav),' g COD/m3'])
-disp(['Effluent average XBA conc = ',num2str(XBAeav),' g COD/m3'])
-disp(['Effluent average XP conc = ',num2str(XPeav),' g COD/m3'])
-disp(['Effluent average SO conc = ',num2str(SOeav),' g (-COD)/m3'])
-disp(['Effluent average SNO conc = ',num2str(SNOeav),' g N/m3'])
-disp(['Effluent average SNH conc = ',num2str(SNHeav),' g N/m3  (limit = 4 g N/m3)'])
-disp(['Effluent average SND conc = ',num2str(SNDeav),' g N/m3'])
-disp(['Effluent average XND conc = ',num2str(XNDeav),' g N/m3'])
-disp(['Effluent average SALK conc = ',num2str(SALKeav),' mol HCO3/m3'])
-disp(['Effluent average TSS conc = ',num2str(TSSeav),' g SS/m3  (limit = 30 g SS/m3)'])
-disp(['Effluent average Temperature = ',num2str(Tempeav),' degC'])
+% disp(' ')
+% disp(['Overall plant performance during time ',num2str(time_eval(1)),' to ',num2str(time_eval(end)),' days'])
+% disp('*****************************************************')
+% disp(' ')
+% disp('Effluent average concentrations based on load')
+% disp('---------------------------------------------')
+% disp(['Effluent average flow rate = ',num2str(Qeav),' m3/d'])
+% disp(['Effluent average SI conc = ',num2str(SIeav),' g COD/m3'])
+% disp(['Effluent average SS conc = ',num2str(SSeav),' g COD/m3'])
+% disp(['Effluent average XI conc = ',num2str(XIeav),' g COD/m3'])
+% disp(['Effluent average XS conc = ',num2str(XSeav),' g COD/m3'])
+% disp(['Effluent average XBH conc = ',num2str(XBHeav),' g COD/m3'])
+% disp(['Effluent average XBA conc = ',num2str(XBAeav),' g COD/m3'])
+% disp(['Effluent average XP conc = ',num2str(XPeav),' g COD/m3'])
+% disp(['Effluent average SO conc = ',num2str(SOeav),' g (-COD)/m3'])
+% disp(['Effluent average SNO conc = ',num2str(SNOeav),' g N/m3'])
+% disp(['Effluent average SNH conc = ',num2str(SNHeav),' g N/m3  (limit = 4 g N/m3)'])
+% disp(['Effluent average SND conc = ',num2str(SNDeav),' g N/m3'])
+% disp(['Effluent average XND conc = ',num2str(XNDeav),' g N/m3'])
+% disp(['Effluent average SALK conc = ',num2str(SALKeav),' mol HCO3/m3'])
+% disp(['Effluent average TSS conc = ',num2str(TSSeav),' g SS/m3  (limit = 30 g SS/m3)'])
+% disp(['Effluent average Temperature = ',num2str(Tempeav),' degC'])
 if (ACTIVATE > 0.5)
-    disp(['Effluent average DUMMY1 conc = ',num2str(DUMMY1eav),' g xxx/m3'])
-    disp(['Effluent average DUMMY2 conc = ',num2str(DUMMY2eav),' g xxx/m3'])
-    disp(['Effluent average DUMMY3 conc = ',num2str(DUMMY3eav),' g xxx/m3'])
-    disp(['Effluent average DUMMY4 conc = ',num2str(DUMMY4eav),' g xxx/m3'])
-    disp(['Effluent average DUMMY5 conc = ',num2str(DUMMY5eav),' g xxx/m3'])
+    % disp(['Effluent average DUMMY1 conc = ',num2str(DUMMY1eav),' g xxx/m3'])
+    % disp(['Effluent average DUMMY2 conc = ',num2str(DUMMY2eav),' g xxx/m3'])
+    % disp(['Effluent average DUMMY3 conc = ',num2str(DUMMY3eav),' g xxx/m3'])
+    % disp(['Effluent average DUMMY4 conc = ',num2str(DUMMY4eav),' g xxx/m3'])
+    % disp(['Effluent average DUMMY5 conc = ',num2str(DUMMY5eav),' g xxx/m3'])
 end
-disp(' ')
-disp(['Effluent average Kjeldahl N conc = ',num2str(TKNeav),' g N/m3'])
-disp(['Effluent average total N conc = ',num2str(TNeav),' g N/m3  (limit = 18 g N/m3)'])
-disp(['Effluent average total COD conc = ',num2str(TCODeav),' g COD/m3  (limit = 100 g COD/m3)'])
-disp(['Effluent average BOD5 conc = ',num2str(BOD5eav),' g/m3  (limit = 10 g/m3)'])
-disp(' ')
-disp('Effluent average load')
-disp('---------------------')
-disp(['Effluent average SI load = ',num2str(SIeload/(1000*totalt)),' kg COD/day'])
-disp(['Effluent average SS load = ',num2str(SSeload/(1000*totalt)),' kg COD/day'])
-disp(['Effluent average XI load = ',num2str(XIeload/(1000*totalt)),' kg COD/day'])
-disp(['Effluent average XS load = ',num2str(XSeload/(1000*totalt)),' kg COD/day'])
-disp(['Effluent average XBH load = ',num2str(XBHeload/(1000*totalt)),' kg COD/day'])
-disp(['Effluent average XBA load = ',num2str(XBAeload/(1000*totalt)),' kg COD/day'])
-disp(['Effluent average XP load = ',num2str(XPeload/(1000*totalt)),' kg COD/day'])
-disp(['Effluent average SO load = ',num2str(SOeload/(1000*totalt)),' kg (-COD)/day'])
-disp(['Effluent average SNO load = ',num2str(SNOeload/(1000*totalt)),' kg N/day'])
-disp(['Effluent average SNH load = ',num2str(SNHeload/(1000*totalt)),' kg N/day'])
-disp(['Effluent average SND load = ',num2str(SNDeload/(1000*totalt)),' kg N/day'])
-disp(['Effluent average XND load = ',num2str(XNDeload/(1000*totalt)),' kg N/day'])
-disp(['Effluent average SALK load = ',num2str(SALKeload/(1000*totalt)),' kmol HCO3/day'])
-disp(['Effluent average TSS load = ',num2str(TSSeload/(1000*totalt)),' kg SS/day'])
+% disp(' ')
+% disp(['Effluent average Kjeldahl N conc = ',num2str(TKNeav),' g N/m3'])
+% disp(['Effluent average total N conc = ',num2str(TNeav),' g N/m3  (limit = 18 g N/m3)'])
+% disp(['Effluent average total COD conc = ',num2str(TCODeav),' g COD/m3  (limit = 100 g COD/m3)'])
+% disp(['Effluent average BOD5 conc = ',num2str(BOD5eav),' g/m3  (limit = 10 g/m3)'])
+% disp(' ')
+% disp('Effluent average load')
+% disp('---------------------')
+% disp(['Effluent average SI load = ',num2str(SIeload/(1000*totalt)),' kg COD/day'])
+% disp(['Effluent average SS load = ',num2str(SSeload/(1000*totalt)),' kg COD/day'])
+% disp(['Effluent average XI load = ',num2str(XIeload/(1000*totalt)),' kg COD/day'])
+% disp(['Effluent average XS load = ',num2str(XSeload/(1000*totalt)),' kg COD/day'])
+% disp(['Effluent average XBH load = ',num2str(XBHeload/(1000*totalt)),' kg COD/day'])
+% disp(['Effluent average XBA load = ',num2str(XBAeload/(1000*totalt)),' kg COD/day'])
+% disp(['Effluent average XP load = ',num2str(XPeload/(1000*totalt)),' kg COD/day'])
+% disp(['Effluent average SO load = ',num2str(SOeload/(1000*totalt)),' kg (-COD)/day'])
+% disp(['Effluent average SNO load = ',num2str(SNOeload/(1000*totalt)),' kg N/day'])
+% disp(['Effluent average SNH load = ',num2str(SNHeload/(1000*totalt)),' kg N/day'])
+% disp(['Effluent average SND load = ',num2str(SNDeload/(1000*totalt)),' kg N/day'])
+% disp(['Effluent average XND load = ',num2str(XNDeload/(1000*totalt)),' kg N/day'])
+% disp(['Effluent average SALK load = ',num2str(SALKeload/(1000*totalt)),' kmol HCO3/day'])
+% disp(['Effluent average TSS load = ',num2str(TSSeload/(1000*totalt)),' kg SS/day'])
 if (ACTIVATE > 0.5)
-    disp(['Effluent average DUMMY1 load = ',num2str(DUMMY1eload/(1000*totalt)),' kg xxx/day'])
-    disp(['Effluent average DUMMY2 load = ',num2str(DUMMY2eload/(1000*totalt)),' kg xxx/day'])
-    disp(['Effluent average DUMMY3 load = ',num2str(DUMMY3eload/(1000*totalt)),' kg xxx/day'])
-    disp(['Effluent average DUMMY4 load = ',num2str(DUMMY4eload/(1000*totalt)),' kg xxx/day'])
-    disp(['Effluent average DUMMY5 load = ',num2str(DUMMY5eload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Effluent average DUMMY1 load = ',num2str(DUMMY1eload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Effluent average DUMMY2 load = ',num2str(DUMMY2eload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Effluent average DUMMY3 load = ',num2str(DUMMY3eload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Effluent average DUMMY4 load = ',num2str(DUMMY4eload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Effluent average DUMMY5 load = ',num2str(DUMMY5eload/(1000*totalt)),' kg xxx/day'])
 end
-disp(' ')
-disp(['Effluent average Kjeldahl N load = ',num2str(totalNKjeload/(1000*totalt)),' kg N/d'])
-disp(['Effluent average total N load = ',num2str(totalNeload/(1000*totalt)),' kg N/d'])
-disp(['Effluent average total COD load = ',num2str(totalCODeload/(1000*totalt)),' kg COD/d'])
-disp(['Effluent average BOD5 load = ',num2str(BOD5eload/(1000*totalt)),' kg BOD5/d'])
+% disp(' ')
+% disp(['Effluent average Kjeldahl N load = ',num2str(totalNKjeload/(1000*totalt)),' kg N/d'])
+% disp(['Effluent average total N load = ',num2str(totalNeload/(1000*totalt)),' kg N/d'])
+% disp(['Effluent average total COD load = ',num2str(totalCODeload/(1000*totalt)),' kg COD/d'])
+% disp(['Effluent average BOD5 load = ',num2str(BOD5eload/(1000*totalt)),' kg BOD5/d'])
 
-disp(' ')
-disp('Sludge for disposal average concentrations based on load')
-disp('--------------------------------------------------------')
-disp(['Sludge for disposal average flow rate = ',num2str(Qsav),' m3/d'])
-disp(['Sludge for disposal average SI conc = ',num2str(SIsav),' g COD/m3'])
-disp(['Sludge for disposal average SS conc = ',num2str(SSsav),' g COD/m3'])
-disp(['Sludge for disposal average XI conc = ',num2str(XIsav),' g COD/m3'])
-disp(['Sludge for disposal average XS conc = ',num2str(XSsav),' g COD/m3'])
-disp(['Sludge for disposal average XBH conc = ',num2str(XBHsav),' g COD/m3'])
-disp(['Sludge for disposal average XBA conc = ',num2str(XBAsav),' g COD/m3'])
-disp(['Sludge for disposal average XP conc = ',num2str(XPsav),' g COD/m3'])
-disp(['Sludge for disposal average SO conc = ',num2str(SOsav),' g (-COD)/m3'])
-disp(['Sludge for disposal average SNO conc = ',num2str(SNOsav),' g N/m3'])
-disp(['Sludge for disposal average SNH conc = ',num2str(SNHsav),' g N/m3'])
-disp(['Sludge for disposal average SND conc = ',num2str(SNDsav),' g N/m3'])
-disp(['Sludge for disposal average XND conc = ',num2str(XNDsav),' g N/m3'])
-disp(['Sludge for disposal average SALK conc = ',num2str(SALKsav),' mol HCO3/m3'])
-disp(['Sludge for disposal average TSS conc = ',num2str(TSSsav),' g SS/m3'])
-disp(['Sludge for disposal average Temperature = ',num2str(Tempsav),' degC'])
+% disp(' ')
+% disp('Sludge for % disposal average concentrations based on load')
+% disp('--------------------------------------------------------')
+% disp(['Sludge for % disposal average flow rate = ',num2str(Qsav),' m3/d'])
+% disp(['Sludge for % disposal average SI conc = ',num2str(SIsav),' g COD/m3'])
+% disp(['Sludge for % disposal average SS conc = ',num2str(SSsav),' g COD/m3'])
+% disp(['Sludge for % disposal average XI conc = ',num2str(XIsav),' g COD/m3'])
+% disp(['Sludge for % disposal average XS conc = ',num2str(XSsav),' g COD/m3'])
+% disp(['Sludge for % disposal average XBH conc = ',num2str(XBHsav),' g COD/m3'])
+% disp(['Sludge for % disposal average XBA conc = ',num2str(XBAsav),' g COD/m3'])
+% disp(['Sludge for % disposal average XP conc = ',num2str(XPsav),' g COD/m3'])
+% disp(['Sludge for % disposal average SO conc = ',num2str(SOsav),' g (-COD)/m3'])
+% disp(['Sludge for % disposal average SNO conc = ',num2str(SNOsav),' g N/m3'])
+% disp(['Sludge for % disposal average SNH conc = ',num2str(SNHsav),' g N/m3'])
+% disp(['Sludge for % disposal average SND conc = ',num2str(SNDsav),' g N/m3'])
+% disp(['Sludge for % disposal average XND conc = ',num2str(XNDsav),' g N/m3'])
+% disp(['Sludge for % disposal average SALK conc = ',num2str(SALKsav),' mol HCO3/m3'])
+% disp(['Sludge for % disposal average TSS conc = ',num2str(TSSsav),' g SS/m3'])
+% disp(['Sludge for % disposal average Temperature = ',num2str(Tempsav),' degC'])
 if (ACTIVATE > 0.5)
-    disp(['Sludge for disposal average DUMMY1 conc = ',num2str(DUMMY1sav),' g xxx/m3'])
-    disp(['Sludge for disposal average DUMMY2 conc = ',num2str(DUMMY2sav),' g xxx/m3'])
-    disp(['Sludge for disposal average DUMMY3 conc = ',num2str(DUMMY3sav),' g xxx/m3'])
-    disp(['Sludge for disposal average DUMMY4 conc = ',num2str(DUMMY4sav),' g xxx/m3'])
-    disp(['Sludge for disposal average DUMMY5 conc = ',num2str(DUMMY5sav),' g xxx/m3'])
+    % disp(['Sludge for % disposal average DUMMY1 conc = ',num2str(DUMMY1sav),' g xxx/m3'])
+    % disp(['Sludge for % disposal average DUMMY2 conc = ',num2str(DUMMY2sav),' g xxx/m3'])
+    % disp(['Sludge for % disposal average DUMMY3 conc = ',num2str(DUMMY3sav),' g xxx/m3'])
+    % disp(['Sludge for % disposal average DUMMY4 conc = ',num2str(DUMMY4sav),' g xxx/m3'])
+    % disp(['Sludge for % disposal average DUMMY5 conc = ',num2str(DUMMY5sav),' g xxx/m3'])
 end
-disp(' ')
-disp(['Sludge for disposal average Kjeldahl N conc = ',num2str(TKNsav),' g N/m3'])
-disp(['Sludge for disposal average total N conc = ',num2str(TNsav),' g N/m3'])
-disp(['Sludge for disposal average total COD conc = ',num2str(TCODsav),' g COD/m3'])
-disp(['Sludge for disposal average BOD5 conc = ',num2str(BOD5sav),' g BOD5/m3'])
-disp(' ')
-disp('Sludge for disposal average load')
-disp('--------------------------------')
-disp(['Sludge for disposal average SI load = ',num2str(SIsload/(1000*totalt)),' kg COD/day'])
-disp(['Sludge for disposal average SS load = ',num2str(SSsload/(1000*totalt)),' kg COD/day'])
-disp(['Sludge for disposal average XI load = ',num2str(XIsload/(1000*totalt)),' kg COD/day'])
-disp(['Sludge for disposal average XS load = ',num2str(XSsload/(1000*totalt)),' kg COD/day'])
-disp(['Sludge for disposal average XBH load = ',num2str(XBHsload/(1000*totalt)),' kg COD/day'])
-disp(['Sludge for disposal average XBA load = ',num2str(XBAsload/(1000*totalt)),' kg COD/day'])
-disp(['Sludge for disposal average XP load = ',num2str(XPsload/(1000*totalt)),' kg COD/day'])
-disp(['Sludge for disposal average SO load = ',num2str(SOsload/(1000*totalt)),' kg (-COD)/day'])
-disp(['Sludge for disposal average SNO load = ',num2str(SNOsload/(1000*totalt)),' kg N/day'])
-disp(['Sludge for disposal average SNH load = ',num2str(SNHsload/(1000*totalt)),' kg N/day'])
-disp(['Sludge for disposal average SND load = ',num2str(SNDsload/(1000*totalt)),' kg N/day'])
-disp(['Sludge for disposal average XND load = ',num2str(XNDsload/(1000*totalt)),' kg N/day'])
-disp(['Sludge for disposal average SALK load = ',num2str(SALKsload/(1000*totalt)),' kmol HCO3/day'])
-disp(['Sludge for disposal average TSS load = ',num2str(TSSsload/(1000*totalt)),' kg SS/day'])
+% disp(' ')
+% disp(['Sludge for % disposal average Kjeldahl N conc = ',num2str(TKNsav),' g N/m3'])
+% disp(['Sludge for % disposal average total N conc = ',num2str(TNsav),' g N/m3'])
+% disp(['Sludge for % disposal average total COD conc = ',num2str(TCODsav),' g COD/m3'])
+% disp(['Sludge for % disposal average BOD5 conc = ',num2str(BOD5sav),' g BOD5/m3'])
+% disp(' ')
+% disp('Sludge for % disposal average load')
+% disp('--------------------------------')
+% disp(['Sludge for % disposal average SI load = ',num2str(SIsload/(1000*totalt)),' kg COD/day'])
+% disp(['Sludge for % disposal average SS load = ',num2str(SSsload/(1000*totalt)),' kg COD/day'])
+% disp(['Sludge for % disposal average XI load = ',num2str(XIsload/(1000*totalt)),' kg COD/day'])
+% disp(['Sludge for % disposal average XS load = ',num2str(XSsload/(1000*totalt)),' kg COD/day'])
+% disp(['Sludge for % disposal average XBH load = ',num2str(XBHsload/(1000*totalt)),' kg COD/day'])
+% disp(['Sludge for % disposal average XBA load = ',num2str(XBAsload/(1000*totalt)),' kg COD/day'])
+% disp(['Sludge for % disposal average XP load = ',num2str(XPsload/(1000*totalt)),' kg COD/day'])
+% disp(['Sludge for % disposal average SO load = ',num2str(SOsload/(1000*totalt)),' kg (-COD)/day'])
+% disp(['Sludge for % disposal average SNO load = ',num2str(SNOsload/(1000*totalt)),' kg N/day'])
+% disp(['Sludge for % disposal average SNH load = ',num2str(SNHsload/(1000*totalt)),' kg N/day'])
+% disp(['Sludge for % disposal average SND load = ',num2str(SNDsload/(1000*totalt)),' kg N/day'])
+% disp(['Sludge for % disposal average XND load = ',num2str(XNDsload/(1000*totalt)),' kg N/day'])
+% disp(['Sludge for % disposal average SALK load = ',num2str(SALKsload/(1000*totalt)),' kmol HCO3/day'])
+% disp(['Sludge for % disposal average TSS load = ',num2str(TSSsload/(1000*totalt)),' kg SS/day'])
 if (ACTIVATE > 0.5)
-    disp(['Sludge for disposal average DUMMY1 load = ',num2str(DUMMY1sload/(1000*totalt)),' kg xxx/day'])
-    disp(['Sludge for disposal average DUMMY2 load = ',num2str(DUMMY2sload/(1000*totalt)),' kg xxx/day'])
-    disp(['Sludge for disposal average DUMMY3 load = ',num2str(DUMMY3sload/(1000*totalt)),' kg xxx/day'])
-    disp(['Sludge for disposal average DUMMY4 load = ',num2str(DUMMY4sload/(1000*totalt)),' kg xxx/day'])
-    disp(['Sludge for disposal average DUMMY5 load = ',num2str(DUMMY5sload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Sludge for % disposal average DUMMY1 load = ',num2str(DUMMY1sload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Sludge for % disposal average DUMMY2 load = ',num2str(DUMMY2sload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Sludge for % disposal average DUMMY3 load = ',num2str(DUMMY3sload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Sludge for % disposal average DUMMY4 load = ',num2str(DUMMY4sload/(1000*totalt)),' kg xxx/day'])
+    % disp(['Sludge for % disposal average DUMMY5 load = ',num2str(DUMMY5sload/(1000*totalt)),' kg xxx/day'])
 end
-disp(' ')
-disp(['Sludge for disposal average Kjeldahl N load = ',num2str(totalNKjsload/(1000*totalt)),' kg N/d'])
-disp(['Sludge for disposal average total N load = ',num2str(totalNsload/(1000*totalt)),' kg N/d'])
-disp(['Sludge for disposal average total COD load = ',num2str(totalCODsload/(1000*totalt)),' kg COD/d'])
-disp(['Sludge for disposal average BOD5 load = ',num2str(BOD5sload/(1000*totalt)),' kg BOD5/d'])
-disp(' ')
-disp('Other effluent quality variables')
-disp('--------------------------------')
-disp(['Influent Quality Index (IQI) = ',num2str(IQI),' kg poll.units/d'])
-disp(['Effluent Quality Index (EQI) = ',num2str(EQI),' kg poll.units/d'])
-disp(' ')
-disp(['Sludge production for disposal = ',num2str(TSSproduced),' kg SS'])
-disp(['Average sludge production for disposal per day = ',num2str(TSSproducedperd),' kg SS/d'])
-disp(['Sludge production released into effluent = ',num2str(Sludgetoeff),' kg SS'])
-disp(['Average sludge production released into effluent per day = ',num2str(Sludgetoeffperd),' kg SS/d'])
-disp(['Total sludge production = ',num2str(Totsludgeprod),' kg SS'])
-disp(['Total average sludge production per day = ',num2str(Totsludgeprodperd),' kg SS/d'])
+% disp(' ')
+% disp(['Sludge for % disposal average Kjeldahl N load = ',num2str(totalNKjsload/(1000*totalt)),' kg N/d'])
+% disp(['Sludge for % disposal average total N load = ',num2str(totalNsload/(1000*totalt)),' kg N/d'])
+% disp(['Sludge for % disposal average total COD load = ',num2str(totalCODsload/(1000*totalt)),' kg COD/d'])
+% disp(['Sludge for % disposal average BOD5 load = ',num2str(BOD5sload/(1000*totalt)),' kg BOD5/d'])
+% disp(' ')
+% disp('Other effluent quality variables')
+% disp('--------------------------------')
+% disp(['Influent Quality Index (IQI) = ',num2str(IQI),' kg poll.units/d'])
+% disp(['Effluent Quality Index (EQI) = ',num2str(EQI),' kg poll.units/d'])
+% disp(' ')
+% disp(['Sludge production for % disposal = ',num2str(TSSproduced),' kg SS'])
+% disp(['Average sludge production for % disposal per day = ',num2str(TSSproducedperd),' kg SS/d'])
+% disp(['Sludge production released into effluent = ',num2str(Sludgetoeff),' kg SS'])
+% disp(['Average sludge production released into effluent per day = ',num2str(Sludgetoeffperd),' kg SS/d'])
+% disp(['Total sludge production = ',num2str(Totsludgeprod),' kg SS'])
+% disp(['Total average sludge production per day = ',num2str(Totsludgeprodperd),' kg SS/d'])
 
-disp(' ')
-disp(['Average aeration energy = ',num2str(airenergyperd),' kWh/d'])
-disp(['Average pumping energy = ',num2str(pumpenergyperd),' kWh/d'])
-disp(['Average carbon source addition = ',num2str(carbonmassperd),' kg COD/d'])
-disp(['Average mixing energy = ',num2str(mixenergyperd),' kWh/d'])
-disp(['Average heating energy = ',num2str(Heatenergyperd),' kWh/d'])
-disp(['Average methane production = ',num2str(Methaneprodperd),' kg CH4/d = ', num2str(Methaneprodperd*50.014/3.6),' kWh/d'])
-disp(' ')
-disp(['Average hydrogen gas production (kg H2/d) = ', num2str(Hydrogenprodperd),' kg H2/d']);
-disp(['Average carbon dioxide gas production (kg CO2/d) = ', num2str(Carbondioxideprodperd),' kg CO2/d']);
-disp(['Average total gas flow rate (AD, normalized to P_atm) = ', num2str(Qgasav), ' m3/d']);
-disp(' ')
+% disp(' ')
+% disp(['Average aeration energy = ',num2str(airenergyperd),' kWh/d'])
+% disp(['Average pumping energy = ',num2str(pumpenergyperd),' kWh/d'])
+% disp(['Average carbon source addition = ',num2str(carbonmassperd),' kg COD/d'])
+% disp(['Average mixing energy = ',num2str(mixenergyperd),' kWh/d'])
+% disp(['Average heating energy = ',num2str(Heatenergyperd),' kWh/d'])
+% disp(['Average methane production = ',num2str(Methaneprodperd),' kg CH4/d = ', num2str(Methaneprodperd*50.014/3.6),' kWh/d'])
+% disp(' ')
+% disp(['Average hydrogen gas production (kg H2/d) = ', num2str(Hydrogenprodperd),' kg H2/d']);
+% disp(['Average carbon dioxide gas production (kg CO2/d) = ', num2str(Carbondioxideprodperd),' kg CO2/d']);
+% disp(['Average total gas flow rate (AD, normalized to P_atm) = ', num2str(Qgasav), ' m3/d']);
+% disp(' ')
 
-disp('Operational Cost Index')
-disp('----------------------')
-disp(['Sludge production cost index = ',num2str(TSScost)])
-disp(['Aeration energy cost index = ',num2str(airenergycost)])
-disp(['Pumping energy cost index = ',num2str(pumpenergycost)])
-disp(['Carbon source dosage cost index = ',num2str(carbonmasscost)])
-disp(['Mixing energy cost index = ',num2str(mixenergycost)])
-disp(['Heating energy cost index = ',num2str(Heatenergycost)])
-disp(['Net energy production from methane index = ',num2str(EnergyfromMethaneperdcost)])
-disp(['Total Operational Cost Index (OCI) = ',num2str(OCI)])
-disp(' ')
-disp('Effluent violations')
-disp('-------------------')
-disp(['95% percentile for effluent SNH (Ammonia95) = ',num2str(SNHeffprctile),' g N/m3'])
-disp(['95% percentile for effluent TN (TN95) = ',num2str(TNeffprctile),' g N/m3'])
-disp(['95% percentile for effluent TSS (TSS95) = ',num2str(TSSeffprctile),' g SS/m3'])
-disp(' ')
+% disp('Operational Cost Index')
+% disp('----------------------')
+% disp(['Sludge production cost index = ',num2str(TSScost)])
+% disp(['Aeration energy cost index = ',num2str(airenergycost)])
+% disp(['Pumping energy cost index = ',num2str(pumpenergycost)])
+% disp(['Carbon source dosage cost index = ',num2str(carbonmasscost)])
+% disp(['Mixing energy cost index = ',num2str(mixenergycost)])
+% disp(['Heating energy cost index = ',num2str(Heatenergycost)])
+% disp(['Net energy production from methane index = ',num2str(EnergyfromMethaneperdcost)])
+% disp(['Total Operational Cost Index (OCI) = ',num2str(OCI)])
+% disp(' ')
+% disp('Effluent violations')
+% disp('-------------------')
+% disp(['95% percentile for effluent SNH (Ammonia95) = ',num2str(SNHeffprctile),' g N/m3'])
+% disp(['95% percentile for effluent TN (TN95) = ',num2str(TNeffprctile),' g N/m3'])
+% disp(['95% percentile for effluent TSS (TSS95) = ',num2str(TSSeffprctile),' g SS/m3'])
+% disp(' ')
 
 output=[Effluentav; Effload; IQI; EQI; TSSproduced; TSSproducedperd; Sludgetoeff; Sludgetoeffperd; Totsludgeprod; Totsludgeprodperd; airenergyperd; pumpenergyperd; carbonmassperd; mixenergyperd; Heatenergyperd; Methaneprodperd; TSScost; airenergycost; pumpenergycost; carbonmasscost; mixenergycost; Heatenergycost; EnergyfromMethaneperdcost; OCI; SNHeffprctile; TNeffprctile; TSSeffprctile];
 
@@ -703,8 +705,8 @@ noofTSSviolation = 1;
 noofBOD5violation = 1;
 
 if not(isempty(Nviolation))
-  disp('The maximum effluent total nitrogen level (18 g N/m3) was violated')
-  disp(['during ',num2str(min(totalt,length(Nviolation)*sampletime)),' days, i.e. ',num2str(min(100,length(Nviolation)*sampletime/totalt*100)),'% of the operating time.'])
+  % disp('The maximum effluent total nitrogen level (18 g N/m3) was violated')
+  % disp(['during ',num2str(min(totalt,length(Nviolation)*sampletime)),' days, i.e. ',num2str(min(100,length(Nviolation)*sampletime/totalt*100)),'% of the operating time.'])
   Nviolationtime=min(totalt,length(Nviolation)*sampletime);
   Nviolationtimepercent=min(100,length(Nviolation)*sampletime/totalt*100);
   for i=2:length(Nviolation)
@@ -712,14 +714,14 @@ if not(isempty(Nviolation))
       noofNviolation = noofNviolation+1;
     end
   end
-  disp(['The limit was violated at ',num2str(noofNviolation),' different occasions.'])
-  disp(' ')
+  % disp(['The limit was violated at ',num2str(noofNviolation),' different occasions.'])
+  % disp(' ')
   output=[output; Nviolationtime; Nviolationtimepercent; noofNviolation];
 end
 
 if not(isempty(CODviolation))
-  disp('The maximum effluent total COD level (100 g COD/m3) was violated')
-  disp(['during ',num2str(min(totalt,length(CODviolation)*sampletime)),' days, i.e. ',num2str(min(100,length(CODviolation)*sampletime/totalt*100)),'% of the operating time.'])
+  % disp('The maximum effluent total COD level (100 g COD/m3) was violated')
+  % disp(['during ',num2str(min(totalt,length(CODviolation)*sampletime)),' days, i.e. ',num2str(min(100,length(CODviolation)*sampletime/totalt*100)),'% of the operating time.'])
   CODviolationtime=min(totalt,length(CODviolation)*sampletime);
   CODviolationtimepercent=min(100,length(CODviolation)*sampletime/totalt*100);
   for i=2:length(CODviolation)
@@ -727,14 +729,14 @@ if not(isempty(CODviolation))
       noofCODviolation = noofCODviolation+1;
     end
   end
-  disp(['The limit was violated at ',num2str(noofCODviolation),' different occasions.'])
-  disp(' ')
+  % disp(['The limit was violated at ',num2str(noofCODviolation),' different occasions.'])
+  % disp(' ')
   output=[output; CODviolationtime; CODviolationtimepercent; noofCODviolation];
 end
 
 if not(isempty(SNHviolation))
-  disp('The maximum effluent ammonia nitrogen level (4 g N/m3) was violated')
-  disp(['during ',num2str(min(totalt,length(SNHviolation)*sampletime)),' days, i.e. ',num2str(min(100,length(SNHviolation)*sampletime/totalt*100)),'% of the operating time.'])
+  % disp('The maximum effluent ammonia nitrogen level (4 g N/m3) was violated')
+  % disp(['during ',num2str(min(totalt,length(SNHviolation)*sampletime)),' days, i.e. ',num2str(min(100,length(SNHviolation)*sampletime/totalt*100)),'% of the operating time.'])
   SNHviolationtime=min(totalt,length(SNHviolation)*sampletime);
   SNHviolationtimepercent=min(100,length(SNHviolation)*sampletime/totalt*100);
   for i=2:length(SNHviolation)
@@ -742,14 +744,14 @@ if not(isempty(SNHviolation))
       noofSNHviolation = noofSNHviolation+1;
     end
   end
-  disp(['The limit was violated at ',num2str(noofSNHviolation),' different occasions.'])
-  disp(' ')
+  % disp(['The limit was violated at ',num2str(noofSNHviolation),' different occasions.'])
+  % disp(' ')
   output=[output; SNHviolationtime; SNHviolationtimepercent; noofSNHviolation];
 end
 
 if not(isempty(TSSviolation))
-  disp('The maximum effluent total suspended solids level (30 g SS/m3) was violated')
-  disp(['during ',num2str(min(totalt,length(TSSviolation)*sampletime)),' days, i.e. ',num2str(min(100,length(TSSviolation)*sampletime/totalt*100)),'% of the operating time.'])
+  % disp('The maximum effluent total suspended solids level (30 g SS/m3) was violated')
+  % disp(['during ',num2str(min(totalt,length(TSSviolation)*sampletime)),' days, i.e. ',num2str(min(100,length(TSSviolation)*sampletime/totalt*100)),'% of the operating time.'])
   TSSviolationtime=min(totalt,length(TSSviolation)*sampletime);
   TSSviolationtimepercent=min(100,length(TSSviolation)*sampletime/totalt*100);
   for i=2:length(TSSviolation)
@@ -757,14 +759,14 @@ if not(isempty(TSSviolation))
       noofTSSviolation = noofTSSviolation+1;
     end
   end
-  disp(['The limit was violated at ',num2str(noofTSSviolation),' different occasions.'])
-  disp(' ')
+  % disp(['The limit was violated at ',num2str(noofTSSviolation),' different occasions.'])
+  % disp(' ')
   output=[output; TSSviolationtime; TSSviolationtimepercent; noofTSSviolation];
 end
 
 if not(isempty(BOD5violation))
-  disp('The maximum effluent BOD5 level (10 mg/l) was violated')
-  disp(['during ',num2str(min(totalt,length(BOD5violation)*sampletime)),' days, i.e. ',num2str(min(100,length(BOD5violation)*sampletime/totalt*100)),'% of the operating time.'])
+  % disp('The maximum effluent BOD5 level (10 mg/l) was violated')
+  % disp(['during ',num2str(min(totalt,length(BOD5violation)*sampletime)),' days, i.e. ',num2str(min(100,length(BOD5violation)*sampletime/totalt*100)),'% of the operating time.'])
   BOD5violationtime=min(totalt,length(BOD5violation)*sampletime);
   BOD5violationtimepercent=min(100,length(BOD5violation)*sampletime/totalt*100);
   for i=2:length(BOD5violation)
@@ -772,17 +774,17 @@ if not(isempty(BOD5violation))
       noofBOD5violation = noofBOD5violation+1;
     end
   end
-  disp(['The limit was violated at ',num2str(noofBOD5violation),' different occasions.'])
-  disp(' ')
+  % disp(['The limit was violated at ',num2str(noofBOD5violation),' different occasions.'])
+  % disp(' ')
   output=[output; BOD5violationtime; BOD5violationtimepercent; noofBOD5violation];
 end
 
 
 if plotflag==1
-    disp(' ')
-    disp('Plotting of BSM2 evaluation results has been initiated')
-    disp('******************************************************')
-    disp(' ')
+    % disp(' ')
+    % disp('Plotting of BSM2 evaluation results has been initiated')
+    % disp('******************************************************')
+    % disp(' ')
     movingaveragewindow = 96; % even number
     timeshift = movingaveragewindow/2;
     b = ones(1,movingaveragewindow)./movingaveragewindow;
@@ -1004,32 +1006,32 @@ if plotflag==1
     xlim([0 105])
     set(gca,'LineWidth',1.5,'FontSize',10,'FontWeight','bold')
     
-    disp('Plotting of BSM2 evaluation results has been completed')
-    disp('******************************************************')
-    disp(' ')
+    % disp('Plotting of BSM2 evaluation results has been completed')
+    % disp('******************************************************')
+    % disp(' ')
 
 end
 
 % Call the 'fuzzified' expert module to detect settling problems
-disp(' ')
-disp('Note: Calculation of risk indices may require 15-60 minutes of CPU time.')
+% disp(' ')
+% disp('Note: Calculation of risk indices may require 15-60 minutes of CPU time.')
 if riskflag==1
     yes = input('Do you want to continue? (yes = 1, no = 0)  >> ');
-    disp(' ')
+    % disp(' ')
     if yes > 0.5
-       disp('Calculation of BSM2 risk indices has been initiated!')
-       disp(' ')
+       % disp('Calculation of BSM2 risk indices has been initiated!')
+       % disp(' ')
        perf_risk_bsm2;
     else
-       disp('Calculation of BSM2 risk indices has been aborted!')
-       disp(' ')
+       % disp('Calculation of BSM2 risk indices has been aborted!')
+       % disp(' ')
     end
 end
 
 stop=clock;
-disp('***** Plant evaluation of BSM2 system successfully finished *****')
-disp(['End time (hour:min:sec) = ', num2str(round(stop(4:6)))]); %Display simulation stop time
-disp(' ')
+% disp('***** Plant evaluation of BSM2 system successfully finished *****')
+% disp(['End time (hour:min:sec) = ', num2str(round(stop(4:6)))]); %% display simulation stop time
+% disp(' ')
 
 function [outvector] = changeScalarToVector(invariable,outvecsize)
 %Vector to modify variables like Kla1in, carb1in etc to vectors from

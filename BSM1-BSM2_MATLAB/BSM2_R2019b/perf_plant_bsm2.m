@@ -17,7 +17,7 @@ close all
 start=clock; 
 disp(' ')
 disp('***** Plant evaluation of BSM2 system initiated *****')
-disp(['Start time for BSM2 evaluation (hour:min:sec) = ', num2str(round(start(4:6)))]); %Display start time of evaluation
+disp(['Start time for BSM2 evaluation (hour:min:sec) = ', num2str(round(start(4:6)))]); %display start time of evaluation
 disp(' ')
 
 riskflag = 0;
@@ -1013,11 +1013,12 @@ if riskflag==   1
     else
        disp('Calculation of BSM2 risk indices has been aborted!')
        disp(' ')
+    end
 end
 
 stop=clock;
 disp('***** Plant evaluation of BSM2 system successfully finished *****')
-disp(['End time (hour:min:sec) = ', num2str(round(stop(4:6)))]); %Display simulation stop time
+disp(['End time (hour:min:sec) = ', num2str(round(stop(4:6)))]); %display simulation stop time
 disp(' ')
 
 function [outvector] = changeScalarToVector(invariable,outvecsize)
