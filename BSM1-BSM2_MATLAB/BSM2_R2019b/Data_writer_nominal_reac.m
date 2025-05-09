@@ -1,17 +1,14 @@
-[m n] = size(in);
+[m, n] = size(in);
 
-% Assume 't' is a uniformly sampled vector with at least 1345 entries
-stopindex = length(t);                     % Last index of t
-startindex = stopindex - 1344;             % 1344 steps before end
+% Index bounds
+stopindex = length(t);
 
-% Safety check (optional)
-if startindex < 1
-    error('Not enough data points in t to go back 1344 steps.');
+if stopindex < 1344
+    startindex = floor(min(t));  % or 1 if you meant index, not time
+    warning('Not enough data points in t to go back 1344 steps. Using startindex = min(t).');
+else
+    startindex = stopindex - 1344 + 1;
 end
-
-% Define time window
-stoptime = t(stopindex);                   % Last time value
-starttime = t(startindex);                 % Time 1344 steps before end
 
 % Evaluation window
 time_eval = t(startindex:stopindex);       % Time range for evaluation

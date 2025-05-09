@@ -4,12 +4,11 @@
 stopindex = length(t);
 
 if stopindex < 1344
-    startindex = min(t);  % or 1 if you meant index, not time
+    startindex = floor(min(t));  % or 1 if you meant index, not time
     warning('Not enough data points in t to go back 1344 steps. Using startindex = min(t).');
 else
     startindex = stopindex - 1344 + 1;
 end
-
 
 % Time window and time vector
 stoptime = t(stopindex);

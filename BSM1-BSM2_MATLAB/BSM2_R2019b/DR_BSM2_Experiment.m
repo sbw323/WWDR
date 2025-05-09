@@ -3,7 +3,7 @@ ss = 'bsm2_ss';
 model = 'DR_bsm2_ol';
 Qr_DR = Qr * 1.5;
 simend = 609;
-cal_time = 25;       % Absolute first pause point [days]
+cal_time = 245;       % Absolute first pause point [days]
 pause_time = 14;      % Segment duration [days]
 iteration = 1;        % Current iteration (manually set or loaded)
 ss_done = false;
@@ -87,8 +87,7 @@ while true
         stateset_bsm2;
         % Set model time appropriately
         set_param(model, 'StartTime', num2str(cal_time));
-        output_expr = sprintf('[%g:1/96:%g]', cal_time, simend);
-        set_param(model, 'outputtimes', output_expr);  
+        safe_set_outputtimes(model);
         % === STEP 1-A: Load experimental input while paused ===
         clear 'KLa3_Setpoints_BSM2' 'KLa4_Setpoints_BSM2' 'KLa5_Setpoints_BSM2' 'kla3in' 'kla4in' 'kla5in'
         load('KLa3_Setpoints_BSM2_experiment.mat');
@@ -104,7 +103,7 @@ while true
     end
 
     % === STEP 2: Pause at iteration-based target ===
-    if cal_pause_done && ~DR_pause_done && sim_time >= pause_target
+    if cal_pause_done && ~DR_pause_done && sim_time >= pause_target 
         set_param(model, 'SimulationCommand', 'pause');
         disp(['Simulation paused at pause_target = ', num2str(sim_time), ' days. DR experiment no ',num2str(iteration), ' completed.']);
 
@@ -118,7 +117,7 @@ while true
         figure_writer
 
         % Prepare the recalibration
-        stepback_target = sim_time - pause_time;
+        stepback_target = floor(sim_time) - pause_time;
 
         % Close model
         bdclose(model);
@@ -128,13 +127,12 @@ while true
         load_system(model);
         open(model);
         % Load workspace at previous segment pause
-        load workspace_dynamic
+        load workspace_dynamic 
+
         stateset_bsm2;
         % Set model time appropriately
         set_param(model, 'StartTime', num2str(stepback_target));
-        output_expr = sprintf('[%g:1/96:%g]', stepback_target, simend);
-        set_param(model, 'outputtimes', output_expr);  
-        
+        safe_set_outputtimes(model);
         % === STEP 2-A: Load nominal input while paused ===
         clear 'KLa3_Setpoints_BSM2' 'KLa4_Setpoints_BSM2' 'KLa5_Setpoints_BSM2' 'kla3in' 'kla4in' 'kla5in'
         load('KLa3_Setpoints_BSM2_nominal.mat');
@@ -164,8 +162,10 @@ while true
         % Prepare next iteration
         iteration = iteration + 1;
         pause_target = cal_time + pause_time * iteration;
+        disp(['Preparing DR experiment no ', num2str(iteration), ', next pause_target = ', num2str(pause_target)]);
 
         % Save steady state or checkpoint
+        stepback_target = floor(sim_time) - pause_time;
         stateset_bsm2;
         save workspace_dynamic
         % Close model
@@ -179,12 +179,8 @@ while true
         load workspace_dynamic
         stateset_bsm2;
         % Set model time appropriately
-        set_param(model, 'StartTime', num2str(sim_time));
-        t_start = ceil(sim_time * 96) / 96;
-        t_stop  = floor(simend * 96) / 96;
-        output_expr = sprintf('[%g:1/96:%g]', t_start, t_stop);
-        set_param(model, 'outputtimes', output_expr);  
-
+        set_param(model, 'StartTime', num2str(floor(sim_time)));
+        safe_set_outputtimes(model);
         % === STEP 3-A: Load experimental input while paused ===
         clear 'KLa3_Setpoints_BSM2' 'KLa4_Setpoints_BSM2' 'KLa5_Setpoints_BSM2' 'kla3in' 'kla4in' 'kla5in'
         load('KLa3_Setpoints_BSM2_experiment.mat');
