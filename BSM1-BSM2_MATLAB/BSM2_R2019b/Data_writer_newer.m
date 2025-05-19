@@ -29,20 +29,20 @@ timevector = time_eval(2:end) - time_eval(1:end-1);  % FIXED: now 1344x1
 
 Qevec = effluentpart(:,15).*timevector;
 Qinvec=inpart(:,15).*timevector;
-SIevec=settlerpart(:,1).*Qevec;
-SSevec=settlerpart(:,2).*Qevec;     
-XIevec=settlerpart(:,3).*Qevec;
-XSevec=settlerpart(:,4).*Qevec;  
-XBHevec=settlerpart(:,5).*Qevec;  
-XBAevec=settlerpart(:,6).*Qevec;
-XPevec=settlerpart(:,7).*Qevec;
-SOevec=settlerpart(:,8).*Qevec;
-SNOevec=settlerpart(:,9).*Qevec;
-SNHevec=settlerpart(:,10).*Qevec;
-SNDevec=settlerpart(:,11).*Qevec;
-XNDevec=settlerpart(:,12).*Qevec;
-SALKevec=settlerpart(:,13).*Qevec;
-TSSevec=settlerpart(:,14).*Qevec;
+SIevec=settlerpart(:,1);
+SSevec=settlerpart(:,2);     
+XIevec=settlerpart(:,3);
+XSevec=settlerpart(:,4);  
+XBHevec=settlerpart(:,5);  
+XBAevec=settlerpart(:,6);
+XPevec=settlerpart(:,7);
+SOevec=settlerpart(:,8);
+SNOevec=settlerpart(:,9);
+SNHevec=settlerpart(:,10);
+SNDevec=settlerpart(:,11);
+XNDevec=settlerpart(:,12);
+SALKevec=settlerpart(:,13);
+TSSevec=settlerpart(:,14);
 Tempevec =settlerpart(:,15).*Qevec;
 
 % Create a matrix from all the vectors
