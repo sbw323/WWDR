@@ -18,9 +18,9 @@ load constinfluent;
 load DYNINFLUENT_ASM3
 
 load('iteration.mat');
-load KLa3_Setpoints_experiment;
-load KLa4_Setpoints_experiment;
-load KLa5_Setpoints_experiment;
+load KLa3_Setpoints_nominal;
+load KLa4_Setpoints_nominal;
+load KLa5_Setpoints_nominal;
 
 SETTLER = [1];      % if SETTLER is 0 the settling model is non reactive
                     % if SETTLER IS 1 the settling model is reactive
