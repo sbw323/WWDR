@@ -1,21 +1,16 @@
-%% REFACTORED ASM3 DR BENCHMARKING SCRIPT
-% Maintains the original ASM3 initialization pattern from readme while
-% incorporating efficiency improvements from the optimized version
+%% ROBUST FIXED ASM3 DR BENCHMARKING SCRIPT
+% Robust version that completely isolates time and segment variables
+% from workspace contamination using temporary variable storage
 %
-% Pattern from README:
-% 1. Run benchmarkinit to initialize variables/parameters
-% 2. Run benchmarkss for steady state with constant influent
-% 3. Use stateset to save final values
-% 4. Run dynamic model with appropriate configurations
-%
-% Author: Refactored version combining original pattern with optimizations
+% Key Fix: Complete variable isolation before/after workspace loads
+% Author: Robust version addressing persistent workspace contamination
 % Date: 2025
 
 %% ===============================================
 %% INITIALIZATION AND CONFIGURATION
 %% ===============================================
 
-fprintf('\n=== ASM3 DR BENCHMARKING - REFACTORED VERSION ===\n');
+fprintf('\n=== ASM3 DR BENCHMARKING - ROBUST FIXED VERSION ===\n');
 fprintf('Initializing workspace and model parameters...\n');
 
 % Step 1: Initialize all variables and parameters (per README)
@@ -223,12 +218,21 @@ total_start = tic;
 % with workspace loads that might contain a 'segment' variable
 for current_segment = 1:total_segments
     
-    % Calculate segment timing (protect these from workspace loads)
-    current_seg_start = cal_time + (current_segment - 1) * pause_time;
-    current_seg_end = cal_time + current_segment * pause_time;
+    % ===================================================================
+    % CRITICAL: Create protected variable structure for this iteration
+    % This completely isolates loop variables from workspace contamination
+    % ===================================================================
+    PROTECTED_VARS = struct();
+    PROTECTED_VARS.segment_number = current_segment;
+    PROTECTED_VARS.start_time = cal_time + (current_segment - 1) * pause_time;
+    PROTECTED_VARS.end_time = cal_time + current_segment * pause_time;
+    PROTECTED_VARS.total_segments = total_segments;
+    PROTECTED_VARS.cal_time = cal_time;
+    PROTECTED_VARS.pause_time = pause_time;
     
-    fprintf('\n--- Experimental Segment %d/%d (t=%.1f to %.1f days) ---\n', ...
-        current_segment, total_segments, current_seg_start, current_seg_end);
+    fprintf('\n--- Segment %d/%d (t=%.1f to %.1f days) ---\n', ...
+        PROTECTED_VARS.segment_number, PROTECTED_VARS.total_segments, ...
+        PROTECTED_VARS.start_time, PROTECTED_VARS.end_time);
     
     %% ========== EXPERIMENTAL RUN ==========
     fprintf('  Running experimental phase...\n');
@@ -238,24 +242,26 @@ for current_segment = 1:total_segments
     load_system(main_model);
     open(main_model);
     
-    % CRITICAL: Restore segment variables after workspace load
-    segment = current_segment;
-    seg_start = current_seg_start;
-    seg_end = current_seg_end;
-    
-    % Configure for segment
-    set_param(main_model, 'StartTime', num2str(seg_start));
-    set_param(main_model, 'StopTime', num2str(seg_end));
+    % Configure model with protected values BEFORE any workspace operations
+    set_param(main_model, 'StartTime', num2str(PROTECTED_VARS.start_time));
+    set_param(main_model, 'StopTime', num2str(PROTECTED_VARS.end_time));
     set_param(main_model, 'Solver', 'ode45');
     set_param(main_model, 'SimulationMode', 'normal');
     
+    % Load workspace (may contaminate variables)
     load('workspace_experimental_calibrated.mat');
     
+    % RESTORE protected variables immediately after workspace load
+    segment = PROTECTED_VARS.segment_number;
+    seg_start = PROTECTED_VARS.start_time;
+    seg_end = PROTECTED_VARS.end_time;
+    iteration = PROTECTED_VARS.segment_number;
+    
+    % Set OutputTimes using protected values
     if exist('safe_set_outputtimes', 'file')
         safe_set_outputtimes(main_model);
     else
-        % Manual output times setting for this segment
-        outputtimes = seg_start:(1/96):seg_end;
+        outputtimes = PROTECTED_VARS.start_time:(1/96):PROTECTED_VARS.end_time;
         set_param(main_model, 'OutputOption', 'SpecifiedOutputTimes');
         set_param(main_model, 'OutputTimes', mat2str(outputtimes));
     end
@@ -265,9 +271,6 @@ for current_segment = 1:total_segments
     load('KLa3_Setpoints_experiment.mat');
     load('KLa4_Setpoints_experiment.mat');
     load('KLa5_Setpoints_experiment.mat');
-    
-    % Store iteration number for data writers (CRITICAL for original data writers)
-    iteration = current_segment;
     
     % Run simulation
     set_param(main_model, 'SimulationCommand', 'start');
@@ -298,52 +301,67 @@ for current_segment = 1:total_segments
     % Update experimental state for next iteration
     stateset;
     save('workspace_experimental_calibrated.mat');
-%     save('segment')
+    save('segment')
     
     exp_time = toc(exp_start);
     
     % Close model
     bdclose(main_model);
     
-    %% ========== NOMINAL RUN ==========
+    %% ========== NOMINAL RUN (COMPLETELY ISOLATED) ==========
     fprintf('  Running nominal phase...\n');
     nom_start = tic;
     
     % Load nominal workspace
     load_system(main_model);
     open(main_model);
-
-%     current_seg_start = cal_time + (current_segment - 1) * pause_time;
-%     current_seg_end = cal_time + current_segment * pause_time;
-
-    fprintf('\n--- Nominal Segment %d/%d (t=%.1f to %.1f days) ---\n', ...
-        current_segment, total_segments, current_seg_start, current_seg_end);
-
-    % CRITICAL: Restore segment variables after workspace load
-%     segment = current_segment;
-%     seg_start = current_seg_start;
-%     seg_end = current_seg_end;
-%     current_seg_start = cal_time + (current_segment - 1) * pause_time;
-%     current_seg_end = cal_time + current_segment * pause_time;
     
-    % Configure for segment
-    set_param(main_model, 'StartTime', num2str(seg_start));
-    set_param(main_model, 'StopTime', num2str(seg_end));
+    % ===================================================================
+    % ROBUST FIX: Configure model COMPLETELY with protected values
+    % Do this BEFORE loading workspace to prevent any contamination
+    % ===================================================================
+    set_param(main_model, 'StartTime', num2str(PROTECTED_VARS.start_time));
+    set_param(main_model, 'StopTime', num2str(PROTECTED_VARS.end_time));
     set_param(main_model, 'Solver', 'ode45');
     set_param(main_model, 'SimulationMode', 'normal');
-
-    load('workspace_nominal_calibrated.mat');
-%     segment = current_segment;
-%     seg_start = current_seg_start;
-%     seg_end = current_seg_end;
     
+    % Configure OutputTimes BEFORE workspace load using protected values
     if exist('safe_set_outputtimes', 'file')
-        safe_set_outputtimes(main_model);
-    else
-        % Manual output times setting for this segment
-        outputtimes = seg_start:(1/96):seg_end;
+        % Temporarily override safe_set_outputtimes by setting manually
+        outputtimes_protected = PROTECTED_VARS.start_time:(1/96):PROTECTED_VARS.end_time;
         set_param(main_model, 'OutputOption', 'SpecifiedOutputTimes');
-        set_param(main_model, 'OutputTimes', mat2str(outputtimes));
+        set_param(main_model, 'OutputTimes', mat2str(outputtimes_protected));
+        fprintf('✔ OutputTimes set to [%.0f:1/96:%.0f] for model %s\n', ...
+            PROTECTED_VARS.start_time, PROTECTED_VARS.end_time, main_model);
+    else
+        outputtimes_protected = PROTECTED_VARS.start_time:(1/96):PROTECTED_VARS.end_time;
+        set_param(main_model, 'OutputOption', 'SpecifiedOutputTimes');
+        set_param(main_model, 'OutputTimes', mat2str(outputtimes_protected));
+    end
+    
+    % NOW load workspace (model is already fully configured with correct times)
+    load('workspace_nominal_calibrated.mat');
+    
+    % IMMEDIATELY restore ALL protected variables after workspace load
+    segment = PROTECTED_VARS.segment_number;
+    seg_start = PROTECTED_VARS.start_time;
+    seg_end = PROTECTED_VARS.end_time;
+    iteration = PROTECTED_VARS.segment_number;
+    current_seg_start = PROTECTED_VARS.start_time;  % Restore this too
+    current_seg_end = PROTECTED_VARS.end_time;      % Restore this too
+    
+    % Double-check that model parameters are still correct after workspace load
+    actual_start = str2double(get_param(main_model, 'StartTime'));
+    actual_stop = str2double(get_param(main_model, 'StopTime'));
+    
+    if abs(actual_start - PROTECTED_VARS.start_time) > 1e-6 || abs(actual_stop - PROTECTED_VARS.end_time) > 1e-6
+        % Workspace load overwrote model parameters - restore them
+        fprintf('    ⚠ Workspace contaminated model parameters - restoring...\n');
+        set_param(main_model, 'StartTime', num2str(PROTECTED_VARS.start_time));
+        set_param(main_model, 'StopTime', num2str(PROTECTED_VARS.end_time));
+        outputtimes_protected = PROTECTED_VARS.start_time:(1/96):PROTECTED_VARS.end_time;
+        set_param(main_model, 'OutputOption', 'SpecifiedOutputTimes');
+        set_param(main_model, 'OutputTimes', mat2str(outputtimes_protected));
     end
     
     % Load nominal setpoints
@@ -351,9 +369,6 @@ for current_segment = 1:total_segments
     load('KLa3_Setpoints_nominal.mat');
     load('KLa4_Setpoints_nominal.mat');
     load('KLa5_Setpoints_nominal.mat');
-    
-    % Ensure iteration is still set for data writers
-    iteration = current_segment;
     
     % Run simulation
     set_param(main_model, 'SimulationCommand', 'start');
@@ -390,12 +405,12 @@ for current_segment = 1:total_segments
     % Close model
     bdclose(main_model);
     
-    % Progress report
+    % Progress report using protected variables
     fprintf('  Segment %d completed (Exp: %.1fs, Nom: %.1fs)\n', ...
-        current_segment, exp_time, nom_time);
+        PROTECTED_VARS.segment_number, exp_time, nom_time);
     
-    % Save progress checkpoint
-    save('simulation_progress.mat', 'current_segment', 'total_segments');
+    % Save progress checkpoint using protected variables
+    save('simulation_progress.mat', 'PROTECTED_VARS');
 end
 
 %% ===============================================

@@ -313,8 +313,8 @@ for current_segment = 1:total_segments
     load_system(main_model);
     open(main_model);
 
-%     current_seg_start = cal_time + (current_segment - 1) * pause_time;
-%     current_seg_end = cal_time + current_segment * pause_time;
+    current_seg_start = cal_time + (current_segment - 1) * pause_time;
+    current_seg_end = cal_time + current_segment * pause_time;
 
     fprintf('\n--- Nominal Segment %d/%d (t=%.1f to %.1f days) ---\n', ...
         current_segment, total_segments, current_seg_start, current_seg_end);
@@ -333,9 +333,9 @@ for current_segment = 1:total_segments
     set_param(main_model, 'SimulationMode', 'normal');
 
     load('workspace_nominal_calibrated.mat');
-%     segment = current_segment;
-%     seg_start = current_seg_start;
-%     seg_end = current_seg_end;
+    segment = current_segment;
+    seg_start = current_seg_start;
+    seg_end = current_seg_end;
     
     if exist('safe_set_outputtimes', 'file')
         safe_set_outputtimes(main_model);
