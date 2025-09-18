@@ -114,6 +114,8 @@ reac5_data = [ S_I5  S_S5  X_I5  X_S5  X_BH5  X_BA5  X_P5  S_O5  S_NO5  S_NH5  S
 % Define the base output directory
 base_output_dir = '/Users/aya/github/WWDR/ASM1-2d-3_MATLAB/ASM1 2d 3 in BSM1/ASM3/ASM3_OutputDB';
 
+iteration = t(1)
+
 % Define the iteration-specific subfolder name
 iteration_folder = sprintf('iter%d', iteration);
 

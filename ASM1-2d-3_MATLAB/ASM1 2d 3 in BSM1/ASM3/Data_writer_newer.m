@@ -69,6 +69,8 @@ settler_data = [SIevec, SSevec, XIevec, XSevec, XBHevec, XBAevec, SOevec, SNOeve
 % Define the base output directory
 base_output_dir = '/Users/aya/github/WWDR/ASM1-2d-3_MATLAB/ASM1 2d 3 in BSM1/ASM3/ASM3_OutputDB';
 
+iteration = t(1)
+
 % Define the iteration-specific subfolder name
 iteration_folder = sprintf('iter%d', iteration);
 

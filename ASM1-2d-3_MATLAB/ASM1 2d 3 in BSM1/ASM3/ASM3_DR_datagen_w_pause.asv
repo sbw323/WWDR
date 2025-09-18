@@ -1,0 +1,226 @@
+%% ASM3 BENCHMARK MODEL DEMAND RESPONSE DATA GENERATION SCRIPT - REFACTORED
+% Author: Samuel Botts White
+% Date: 2025
+% Refactored to use pause/continue logic for continuous simulation
+
+%% ===============================================
+%% INITIALIZATION AND CONFIGURATION
+%% ==============================================
+
+fprintf('\n=== ASM3 BENCHMARK MODEL - CONTINUOUS SIMULATION ===\n');
+fprintf('Initializing workspace and model parameters...\n');
+
+% Step 1: Initialize all variables and parameters (per README)
+benchmarkinit_ASM3_DR;
+
+% Store critical variables
+ss_model = 'benchmarkss';           % Steady state model
+main_model = 'DR_benchmark_LT';     % Dynamic model
+simend = 609;                       % Total simulation time [days]
+cal_time = 245;                     % Calibration time [days]
+pause_time = 14;                    % Segment duration [days]
+Qr_DR = Qin * 1.5;                  % Recycle flow rate
+
+% Calculate derived parameters
+total_segments = floor((simend - cal_time) / pause_time);
+
+fprintf('Configuration complete:\n');
+fprintf('  - Simulation duration: %.1f days\n', simend);
+fprintf('  - Calibration period: %.1f days\n', cal_time);
+fprintf('  - Segment duration: %.1f days\n', pause_time);
+fprintf('  - Total segments: %d\n', total_segments);
+
+% Create output directory if needed
+if ~exist('ASM3_OutputDB', 'dir')
+    mkdir('ASM3_OutputDB');
+end
+
+%% ===============================================
+%% PHASE 1: STEADY STATE INITIALIZATION
+%% ===============================================
+
+fprintf('\n=== PHASE 1: STEADY STATE INITIALIZATION ===\n');
+
+% Step 2: Run steady state model (per README pattern)
+fprintf('Running steady state model with constant influent...\n');
+benchmarkss;  % Opens the Simulink model
+
+% Start steady state simulation
+set_param(ss_model, 'SimulationCommand', 'start');
+
+% Wait for steady state completion
+while ~strcmp(get_param(ss_model, 'SimulationStatus'), 'stopped')
+    pause(0.1);
+end
+
+% Step 3: Save steady state values (per README pattern)
+stateset;  % Initialize state variables to steady state values
+
+fprintf('✓ Steady state initialization completed\n');
+
+%% ===============================================
+%% PHASE 2: CONTINUOUS SIMULATION SETUP
+%% ===============================================
+
+fprintf('\n=== PHASE 2: CONTINUOUS SIMULATION SETUP ===\n');
+
+% Load and configure dynamic model for continuous simulation
+fprintf('Setting up continuous simulation model...\n');
+load_system(main_model);
+open(main_model);
+
+% Configure for full simulation duration
+set_param(main_model, 'StartTime', '0');
+set_param(main_model, 'StopTime', num2str(simend));
+set_param(main_model, 'Solver', 'ode45');
+set_param(main_model, 'SimulationMode', 'normal');
+
+% Load experimental setpoints
+fprintf('Loading experimental setpoints...\n');
+clear KLa3_Setpoints_ASM3 KLa4_Setpoints_ASM3 KLa5_Setpoints_ASM3 kla3in kla4in kla5in
+load('KLa3_Setpoints_experiment.mat');
+load('KLa4_Setpoints_experiment.mat');
+load('KLa5_Setpoints_experiment.mat');
+
+% Set output times for high resolution data capture
+if exist('safe_set_outputtimes', 'file')
+    safe_set_outputtimes(main_model);
+else
+    outputtimes = 0:(1/96):simend;  % 15-minute intervals
+    set_param(main_model, 'OutputOption', 'SpecifiedOutputTimes');
+    set_param(main_model, 'OutputTimes', mat2str(outputtimes));
+end
+
+fprintf('✓ Model configured for continuous simulation\n');
+
+%% ===============================================
+%% PHASE 3: CONTINUOUS SIMULATION WITH SEGMENTED DATA EXPORT
+%% ===============================================
+
+fprintf('\n=== PHASE 3: CONTINUOUS SIMULATION ===\n');
+fprintf('Starting continuous simulation from t=0 to t=%.1f days\n', simend);
+fprintf('Calibration period: t=0 to t=%.1f days\n', cal_time);
+fprintf('Data export segments: %d segments from t=%.1f to t=%.1f days\n', ...
+    total_segments, cal_time, simend);
+
+% Start continuous simulation
+simulation_start_time = tic;
+set_param(main_model, 'SimulationCommand', 'start');
+
+% Verify simulation actually started
+pause(2);  % Give simulation time to initialize
+if ~strcmp(get_param(main_model, 'SimulationStatus'), 'running')
+    error('Failed to start simulation. Current status: %s', ...
+        get_param(main_model, 'SimulationStatus'));
+end
+
+% Wait for calibration period to complete
+fprintf('\nCalibrating to pseudo-steady state (t=0 to %.1f days)...\n', cal_time);
+while strcmp(get_param(main_model, 'SimulationStatus'), 'running') && ...
+      str2double(get_param(main_model, 'SimulationTime')) < cal_time
+    pause(1.0);  % Check progress every second during calibration
+    if mod(str2double(get_param(main_model, 'SimulationTime')), 50) < 1
+        fprintf('  Calibration progress: t=%.1f days\n', ...
+            str2double(get_param(main_model, 'SimulationTime')));
+    end
+end
+
+fprintf('✓ Calibration completed at t=%.1f days\n', cal_time);
+
+%% Main Data Generation Loop with Pause/Continue
+fprintf('\n--- Starting segmented data export ---\n');
+
+for segment = 1:total_segments
+    pause_target = cal_time + segment * pause_time;
+    
+    fprintf('\nSegment %d/%d: Simulating to t=%.1f days...\n', ...
+        segment, total_segments, pause_target);
+    
+    % Wait for simulation to reach pause target
+    while strcmp(get_param(main_model, 'SimulationStatus'), 'running') && ...
+          str2double(get_param(main_model, 'SimulationTime')) < pause_target
+        pause(0.5);  % Check progress frequently
+    end
+    
+    % Check if simulation is still running before pausing
+    if strcmp(get_param(main_model, 'SimulationStatus'), 'running')
+        % Pause simulation at target time
+        set_param(main_model, 'SimulationCommand', 'pause');
+        current_time = str2double(get_param(main_model, 'SimulationTime'));
+        
+        fprintf('  ⏸️  Model paused at t=%.2f days\n', current_time);
+        
+        % Verify we have valid simulation time
+        if isnan(current_time) || current_time < pause_target - pause_time
+            fprintf('  ⚠️  Warning: Invalid simulation time (%.2f). Skipping data export.\n', current_time);
+        else
+            % Export data during pause
+            fprintf('  📊 Exporting data for segment %d...\n', segment);
+            segment_start = tic;
+            
+            try
+                % Set iteration counter for data writers
+                iteration = segment;
+                
+                % Verify we have simulation data before attempting export
+                if exist('t', 'var') && exist('Qin', 'var') && length(t) > 100
+                    % Execute data writers
+                    if exist('Data_writer_newer', 'file')
+                        Data_writer_newer;
+                    end
+                    if exist('Data_writer_reac', 'file')
+                        Data_writer_reac;
+                    end
+                    if exist('perf_plant_LT_DR', 'file')
+                        perf_plant_LT_DR;
+                    end
+                    if exist('figure_writer', 'file')
+                        figure_writer;
+                    end
+                    
+                    segment_time = toc(segment_start);
+                    fprintf('  ✓ Data export completed in %.1f seconds\n', segment_time);
+                else
+                    fprintf('  ⚠️  Warning: Insufficient simulation data for export (t length: %d)\n', ...
+                        exist('t', 'var') * length(t));
+                end
+                
+            catch ME
+                fprintf('  ⚠️  Warning: Data export failed for segment %d: %s\n', ...
+                    segment, ME.message);
+            end
+        end
+        
+        % Continue simulation (unless final segment)
+        if segment < total_segments
+            set_param(main_model, 'SimulationCommand', 'continue');
+            fprintf('  ▶️  Simulation resumed\n');
+        else
+            fprintf('  🏁 Final segment completed - simulation will end\n');
+        end
+        
+    else
+        fprintf('  ⚠️  Warning: Simulation stopped unexpectedly at t=%.1f\n', ...
+            str2double(get_param(main_model, 'SimulationTime')));
+        break;
+    end
+end
+
+%% ===============================================
+%% COMPLETION AND CLEANUP
+%% ===============================================
+
+total_simulation_time = toc(simulation_start_time);
+
+% Close model
+bdclose(main_model);
+
+fprintf('\n=== CONTINUOUS SIMULATION COMPLETED ===\n');
+fprintf('Summary:\n');
+fprintf('  Total segments processed: %d\n', total_segments);
+fprintf('  Simulation time range: %.1f to %.1f days\n', cal_time, simend);
+fprintf('  Total execution time: %.1f minutes\n', total_simulation_time/60);
+fprintf('  Average time per segment: %.1f seconds\n', total_simulation_time/total_segments);
+
+fprintf('\nAll data saved successfully.\n');
+fprintf('Check ASM3_OutputDB directory for output files.\n');
