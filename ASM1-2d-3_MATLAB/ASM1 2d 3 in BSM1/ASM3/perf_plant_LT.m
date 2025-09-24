@@ -109,7 +109,7 @@ totalNevec2=   (SNOevec + SNHevec+ i_NSI*(SIevec) + i_NSS*(SSevec) + i_NXI*(XIev
 totalCODevec2= (SIevec+SSevec+XIevec+XSevec+XBHevec+XBAevec+XSTOevec)./Qevec;
 SNHevec2=       SNHevec./Qevec;
 TSSevec2=       TSSevec./Qevec;
-BOD5evec2=     (0.65*(SSevec+XSevec+(1-f_P)*(XBHevec+XBAevec + XSTOevec )))./Qevec;
+BOD5evec2=     (0.25*(SSevec+XSevec+(1-f_P)*(XBHevec+XBAevec + XSTOevec )))./Qevec;
 
 totalNKjeload= SNHeload+ i_NSI*(SIeload) + i_NSS*(SSeload) + i_NXI*(XIeload) + i_NXS*(XSeload) + i_NBM*( XBHeload + XBAeload);
 totalNeload=   SNOeload+totalNKjeload;
@@ -122,13 +122,13 @@ SSin=       inpart(:,13);
 CODin=      inpart(:,2)+ inpart(:,3)+ inpart(:,8)+inpart(:,9)+inpart(:,10)+inpart(:,11) + inpart(:,12);
 SNKjin=     inpart(:,4)+ i_NSI*(inpart(:,1)) + i_NSS*(inpart(:,2)) + i_NXI*(inpart(:,8)) + i_NXS*(inpart(:,9)) + i_NBM*( inpart(:,10) + inpart(:,11));
 SNOin=      inpart(:,6);
-BOD5in=0.65*(inpart(:,3)+inpart(:,9)+(1-f_P)*(inpart(:,10)+inpart(:,11)+ inpart(:,12) ));
+BOD5in=0.25*(inpart(:,3)+inpart(:,9)+(1-f_P)*(inpart(:,10)+inpart(:,11)+ inpart(:,12) ));
 
 SSe=       settlerpart(:,34);
 CODe=      settlerpart(:,23)+ settlerpart(:,24)+ settlerpart(:,29)+settlerpart(:,30)+settlerpart(:,31)+settlerpart(:,32) + settlerpart(:,33);
 SNKje=     settlerpart(:,25)+ i_NSI*(settlerpart(:,23)) + i_NSS*(settlerpart(:,24)) + i_NXI*(settlerpart(:,29)) + i_NXS*(settlerpart(:,30)) + i_NBM*( settlerpart(:,31) + settlerpart(:,33));
 SNOe=      settlerpart(:,29);
-BOD5e=     0.65*(settlerpart(:,24)+settlerpart(:,30)+(1-f_P)*(settlerpart(:,31)+settlerpart(:,32)+ settlerpart(:,33) ));
+BOD5e=     0.25*(settlerpart(:,24)+settlerpart(:,30)+(1-f_P)*(settlerpart(:,31)+settlerpart(:,32)+ settlerpart(:,33) ));
 
 EQvecinst=(BSS*SSe+BCOD*CODe+BNKj*SNKje+BNO*SNOe+BBOD5*BOD5e).*settlerpart(:,35);
 EQvecinst_new=(BSS*SSe+BCOD*CODe+BNKj_new*SNKje+BNO_new*SNOe+BBOD5*BOD5e).*settlerpart(:,35); %updated BSM TG meeting no 8

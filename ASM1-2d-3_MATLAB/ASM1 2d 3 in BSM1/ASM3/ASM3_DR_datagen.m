@@ -221,7 +221,7 @@ for current_segment = 1:total_segments
     % Save experimental data (with error handling)
     try
         if exist('Data_writer_newer', 'file')
-            Data_writer_newer;
+            Data_writer_settler;
         end
         if exist('Data_writer_reac', 'file')
             Data_writer_reac;
