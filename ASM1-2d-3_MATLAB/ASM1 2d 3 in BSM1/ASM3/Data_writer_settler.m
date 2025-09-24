@@ -11,7 +11,7 @@ end
 
 % Window length in samples (cap at available samples)
 window_len = min(target_len, stopindex);
-startindex = stopindex - window_len + 1;
+startindex = stopindex - window_len;
 
 % Indices and time window
 idx       = startindex:stopindex;

@@ -102,7 +102,7 @@ def resolve_iterations(requested: Iterable[str] | None, mapping: Dict[str, List[
 def load_iteration_matrix(base_dir: Path, iteration: str) -> Tuple[np.ndarray, List[str]]:
     rows: List[np.ndarray] = []
     labels: List[str] = []
-    expected_len: int | None = None
+    lengths: List[int] = []
     iter_id = iteration.replace("iter", "")
 
     for source_key, source_label, template in SOURCES:
@@ -111,19 +111,26 @@ def load_iteration_matrix(base_dir: Path, iteration: str) -> Tuple[np.ndarray, L
             if not csv_path.exists():
                 raise FileNotFoundError(f"Missing CSV: {csv_path}")
             series = read_tagR(csv_path)
-            if expected_len is None:
-                expected_len = len(series)
-            elif len(series) != expected_len:
-                raise ValueError(
-                    f"Inconsistent TagR length for {csv_path}: expected {expected_len}, got {len(series)}"
-                )
             rows.append(series)
             labels.append(f"{source_label} {exp_label}")
+            lengths.append(len(series))
 
-    if expected_len is None:
+    if not rows:
         raise RuntimeError(f"No TagR data collected for iteration {iteration}")
 
-    matrix = np.vstack(rows)
+    min_len = min(lengths)
+    max_len = max(lengths)
+    if min_len != max_len:
+        logging.warning(
+            "Iteration %s has inconsistent lengths (min=%d, max=%d); clipping to %d entries",
+            iteration,
+            min_len,
+            max_len,
+            min_len,
+        )
+
+    clipped_rows = [series[:min_len] for series in rows]
+    matrix = np.vstack(clipped_rows)
     return matrix, labels
 
 
