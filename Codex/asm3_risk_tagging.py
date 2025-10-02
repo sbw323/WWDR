@@ -87,8 +87,17 @@ class DatasetPair:
         return self.experiment_file.name
 
 
-def compute_eqi(df: pd.DataFrame, stoich: dict[str, float] = STOICHIOMETRY) -> pd.Series:
-    """Compute the instantaneous Effluent Quality Index (EQI)."""
+def compute_eqi(
+    df: pd.DataFrame,
+    stoich: dict[str, float] = STOICHIOMETRY,
+    *,
+    return_components: bool = False,
+) -> pd.Series | tuple[pd.Series, dict[str, pd.Series]]:
+    """Compute the instantaneous Effluent Quality Index (EQI).
+
+    When ``return_components`` is True, the function also returns the contributing
+    terms (SSe, CODe, SNKJe, SNOe, BOD5e) so callers can persist them.
+    """
     i_nbm = stoich["i_NBM"]
     i_nsi = stoich["i_NSI"]
     i_nss = stoich["i_NSS"]
@@ -111,7 +120,18 @@ def compute_eqi(df: pd.DataFrame, stoich: dict[str, float] = STOICHIOMETRY) -> p
     q = df["Q"]
 
     eqi = (BSS * sse + BCOD * code + BNKj * snkje + BNO * snoe + BBOD5 * bod5e) * q
-    return eqi
+
+    if not return_components:
+        return eqi
+
+    components = {
+        "SSe": sse,
+        "CODe": code,
+        "SNKJe": snkje,
+        "SNOe": snoe,
+        "BOD5e": bod5e,
+    }
+    return eqi, components
 
 
 def assign_severity(iter_df: pd.DataFrame, nominal_df: pd.DataFrame) -> pd.DataFrame:
@@ -221,7 +241,10 @@ def assign_risk(df: pd.DataFrame) -> pd.DataFrame:
 def prepare_dataframe(csv_path: Path) -> pd.DataFrame:
     """Load a CSV into a DataFrame with standard columns and derived metrics."""
     df = pd.read_csv(csv_path, header=None, names=ASM3_COLUMNS)
-    df["EQIvecinst"] = compute_eqi(df)
+    eqi_series, components = compute_eqi(df, return_components=True)
+    df["EQIvecinst"] = eqi_series
+    for name, series in components.items():
+        df[name] = series
     df["mR"] = df["EQIvecinst"].rolling(window=ROLLING_WINDOW, min_periods=1).mean()
     df["tagS"] = 0
     df["tagF"] = 0
