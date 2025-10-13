@@ -229,9 +229,9 @@ for current_segment = 1:total_segments
         if exist('perf_plant_LT_DR', 'file')
             perf_plant_LT_DR;
         end
-        if exist('figure_writer', 'file')
-            figure_writer;
-        end
+%         if exist('figure_writer', 'file')
+%             figure_writer;
+%         end
         fprintf('    ✓ Experimental data saved\n');
     catch ME
         fprintf('    ⚠ Warning: Some data writers failed: %s\n', ME.message);
