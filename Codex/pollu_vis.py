@@ -136,10 +136,10 @@ def compute_eqi(
     return eqi, components
 
 EXPERIMENTS: Dict[str, str] = {
-    "4h": "Results_ExpLength_4h",
-    "5h": "Results_ExpLength_5h",
-    "6h": "Results_ExpLength_6h",
-    "7h": "Results_ExpLength_7h",
+    "4h": "Results_ExpLength_4h_0",
+    "5h": "Results_ExpLength_5h_0",
+    "6h": "Results_ExpLength_6h_0",
+    "7h": "Results_ExpLength_7h_0",
 }
 
 SOURCES: Dict[str, str] = {
