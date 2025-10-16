@@ -18,7 +18,7 @@ main_model = 'DR_benchmark_LT';     % Dynamic model
 simend = 609;                       % Total simulation time [days]
 cal_time = 245;                     % Calibration time [days]
 pause_time = 14;                    % Segment duration [days]
-Qr_DR = Qin * 1.5;                  % Recycle flow rate
+Qr_DR = Qin * 1.0;                  % Recycle flow rate
 iteration = 1;                      % Counter for data writers
 
 % Calculate derived parameters
