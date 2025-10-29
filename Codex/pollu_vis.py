@@ -14,9 +14,16 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Sequence, Tuple
 from dataclasses import dataclass
 
-import matplotlib.pyplot as plt
-import numpy as np
+try:
+    import numpy as np
+except ModuleNotFoundError as exc:  # pragma: no cover - informative guard
+    raise SystemExit("numpy is required for Codex.pollu_vis.") from exc
 import pandas as pd
+
+try:  # pragma: no cover - optional plotting dependency
+    import matplotlib.pyplot as plt
+except ModuleNotFoundError:  # pragma: no cover - optional plotting dependency
+    plt = None
 
 
 # Column schema shared by reactor and settler CSV exports
@@ -111,11 +118,11 @@ def compute_eqi(
     code = df[["S_I", "S_S", "X_I", "X_S", "X_H", "X_A", "X_STO"]].sum(axis=1)
     snkje = (
         df["S_NH4"]
-        # + i_nsi * df["S_I"]
-        # + i_nss * df["S_S"]
-        # + i_nxi * df["X_I"]
-        # + i_nxs * df["X_S"]
-        # + i_nbm * (df["X_H"] + df["X_A"])
+        + i_nsi * df["S_I"]
+        + i_nss * df["S_S"]
+        + i_nxi * df["X_I"]
+        + i_nxs * df["X_S"]
+        + i_nbm * (df["X_H"] + df["X_A"])
     )
     snoe = df["S_NOX"]
     bod5e = 0.25 * (df["S_S"] + df["X_S"] + (1 - f_p) * (df["X_H"] + df["X_A"] + df["X_STO"]))
@@ -314,6 +321,9 @@ def plot_percentiles(
     show: bool,
 ) -> None:
     time_axis = np.arange(series_length) * TIME_STEP_HOURS
+
+    if plt is None:
+        raise RuntimeError("matplotlib is required for plotting functionality in pollu_vis.")
 
     fig, axes = plt.subplots(len(COMPONENTS), 1, figsize=(14, 12), sharex=True)
 

@@ -16,8 +16,13 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Mapping, Sequence
 import csv
 
-import matplotlib.pyplot as plt
-from matplotlib import ticker
+try:  # pragma: no cover - optional plotting dependencies
+    import matplotlib.pyplot as plt
+    from matplotlib import ticker
+except ModuleNotFoundError:  # pragma: no cover
+    plt = None
+    ticker = None
+
 import numpy as np
 import pandas as pd
 
@@ -315,6 +320,8 @@ def plot_iteration(
     output_path: Path | None,
     show: bool,
 ) -> None:
+    if plt is None or ticker is None:
+        raise RuntimeError("matplotlib is required for plotting in pollu_norm_vis.")
     fig, ax = plt.subplots(figsize=(12, 5))
 
     for var in VARIABLES:
@@ -373,6 +380,8 @@ def plot_percentiles(
     output_dir: Path | None,
     show: bool,
 ) -> None:
+    if plt is None or ticker is None:
+        raise RuntimeError("matplotlib is required for plotting in pollu_norm_vis.")
     if time_axis.size == 0:
         logging.warning("Percentile plot: empty time axis for experiment %s", experiment_label)
         return
@@ -459,6 +468,8 @@ def plot_combined_95th(
     output_dir: Path | None,
     show: bool,
 ) -> None:
+    if plt is None or ticker is None:
+        raise RuntimeError("matplotlib is required for plotting in pollu_norm_vis.")
     if not experiments:
         return
 
