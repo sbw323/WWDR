@@ -13,10 +13,10 @@ import pandas as pd
 LOGGER = logging.getLogger(__name__)
 
 DEFAULT_INPUT = Path(
-    "/Users/ikai/github/WWDR/Databases/3dayspread_ASM3-KLa5-84/naive_stacked_data/normalized_outputs_new"
+    "/Users/ikai/github/WWDR-Databases/Databases/3dayspread_ASM3-KLa5-84/naive_stacked_data/normalized_outputs_new"
 )
 DEFAULT_OUTPUT = Path(
-    "/Users/ikai/github/WWDR/Databases/3dayspread_ASM3-KLa5-84/naive_stacked_data/extracted_experiments_normalized"
+    "/Users/ikai/github/WWDR-Databases/Databases/3dayspread_ASM3-KLa5-84/naive_stacked_data/extracted_experiments_normalized"
 )
 
 
@@ -32,8 +32,8 @@ def extract_window(df: pd.DataFrame, *, timestamp_col: str) -> pd.DataFrame:
     if timestamps.isna().all():
         raise ValueError("All timestamps are NaT after parsing; check input data.")
 
-    anchor = timestamps.min().floor("D") + pd.Timedelta(days=3)
-    window_start = anchor
+    anchor = timestamps.min().floor("D")
+    window_start = anchor #+ pd.Timedelta(days=9) - pd.Timedelta(minutes=15)
     window_end = anchor + pd.Timedelta(days=3) - pd.Timedelta(minutes=15)
 
     mask = (timestamps >= window_start) & (timestamps <= window_end)

@@ -40,7 +40,9 @@ TYPE_PATTERNS: Dict[str, re.Pattern[str]] = {
 }
 
 RUN_PATTERN = re.compile(
-    r"ExpLength_(?P<length>\d+)(?P<unit>[a-zA-Z]+)_startday_(?P<start>\d+)", re.IGNORECASE
+    r"ExpLength_(?P<length>\d+)(?P<unit>[a-zA-Z]+)_startday_(?P<start>\d+)"
+    r"(?:_reductionfactor_(?P<reduction>[\d\.]+)pct)?",
+    re.IGNORECASE,
 )
 
 UNIT_LABELS = {
@@ -85,6 +87,7 @@ def natural_key(text: str) -> Tuple:
 class ExperimentRun:
     path: Path
     label: str
+    kla_fraction: Optional[float]
 
 
 def discover_experiments(root: Path) -> List[ExperimentRun]:
@@ -98,8 +101,12 @@ def discover_experiments(root: Path) -> List[ExperimentRun]:
         unit = match.group("unit").lower()
         unit_label = UNIT_LABELS.get(unit, unit)
         start = int(match.group("start"))
+        reduction_str = match.group("reduction")
+        kla_fraction = float(reduction_str) if reduction_str else None
         label = f"{length}{unit_label}_day{start}"
-        experiments.append(ExperimentRun(path=child, label=label))
+        if kla_fraction is not None:
+            label += f"_red{reduction_str}pct"
+        experiments.append(ExperimentRun(path=child, label=label, kla_fraction=kla_fraction))
     return experiments
 
 
@@ -245,8 +252,16 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
     experiments = discover_experiments(input_dir)
     if not experiments:
-        LOGGER.warning("No experiment folders detected under %s.", input_dir)
-        return
+        match = RUN_PATTERN.search(input_dir.name)
+        if match:
+            unit_label = UNIT_LABELS.get(match.group("unit").lower(), match.group("unit"))
+            label = f"{match.group('length')}{unit_label}_day{match.group('start')}"
+            reduction_str = match.group("reduction")
+            kla_fraction = float(reduction_str) if reduction_str else None
+            experiments = [ExperimentRun(path=input_dir, label=label, kla_fraction=kla_fraction)]
+        else:
+            LOGGER.warning("No experiment folders detected under %s.", input_dir)
+            return
 
     LOGGER.info("Discovered %d experiment(s) to process.", len(experiments))
     for exp in experiments:

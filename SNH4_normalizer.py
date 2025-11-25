@@ -16,7 +16,7 @@ DEFAULT_INPUT = Path(
     "/Users/ikai/github/WWDR/Databases/3dayspread_ASM3-KLa5-84/naive_stacked_data/with_influent"
 )
 DEFAULT_NOMINAL = Path(
-    "/Users/ikai/github/WWDR/Databases/3dayspread_ASM3-KLa5-84/naive_stacked_data/Nominal_Stacked"
+    "/Users/ikai/github/WWDR-Databases/Databases/Nominal_Stacked"
 )
 DEFAULT_OUTPUT = Path(
     "/Users/ikai/github/WWDR/Databases/3dayspread_ASM3-KLa5-84/naive_stacked_data/with_snh4_norm"

@@ -7,5 +7,7 @@
 			"path": "../OpenAI"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
 }
