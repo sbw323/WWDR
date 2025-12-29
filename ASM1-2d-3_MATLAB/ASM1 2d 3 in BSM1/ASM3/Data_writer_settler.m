@@ -55,7 +55,7 @@ TSSevec = settlerpart(:,34);
 % Create a matrix from all the vectors
 settler_data = [SIevec, SSevec, XIevec, XSevec, XBHevec, XBAevec, XSTOevec, SOevec, SNOevec, SNHevec, SN2evec, SALKevec, TSSevec, Qevec];
 % Define the base output directory
-base_output_dir = '/Users/aya/github/WWDR/ASM1-2d-3_MATLAB/ASM1 2d 3 in BSM1/ASM3/ASM3_OutputDB';
+base_output_dir = '/Users/ikai/github/WWDR/ASM1-2d-3_MATLAB/ASM1 2d 3 in BSM1/ASM3/ASM3_OutputDB';
 
 iteration = t(1);
 

@@ -15,10 +15,10 @@ benchmarkinit_ASM3_DR;
 % Store critical variables before any workspace operations
 ss_model = 'benchmarkss';           % Steady state model
 main_model = 'DR_benchmark_LT';     % Dynamic model
-simend = 609;                       % Total simulation time [days]
+simend = 273;                       % Total simulation time [days]
 cal_time = 245;                     % Calibration time [days]
 pause_time = 14;                    % Segment duration [days]
-Qr_DR = Qin * 1.0;                  % Recycle flow rate
+Qr_DR = Qin * 1.5;                  % Recycle flow rate
 iteration = 1;                      % Counter for data writers
 
 % Calculate derived parameters
@@ -223,12 +223,15 @@ for current_segment = 1:total_segments
         if exist('Data_writer_newer', 'file')
             Data_writer_settler;
         end
-        if exist('Data_writer_reac', 'file')
-            Data_writer_reac;
+        % if exist('Data_writer_reac', 'file')
+        %     Data_writer_reac;
+        % end
+        if exist('Data_writer_reac_energy', 'file')
+            Data_writer_reac_energy;
         end
-        if exist('perf_plant_LT_DR', 'file')
-            perf_plant_LT_DR;
-        end
+        % if exist('perf_plant_LT_DR', 'file')
+            % perf_plant_LT_DR;
+        % end
 %         if exist('figure_writer', 'file')
 %             figure_writer;
 %         end

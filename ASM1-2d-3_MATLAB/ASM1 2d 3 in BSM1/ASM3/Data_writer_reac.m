@@ -152,7 +152,7 @@ reac4_data = [ S_I_4  S_S_4  X_I_4  X_S_4  X_H_4  X_A_4  X_STO_4  S_O2_4  S_NOX_
 reac5_data = [ S_I_5  S_S_5  X_I_5  X_S_5  X_H_5  X_A_5  X_STO_5  S_O2_5  S_NOX_5  S_NH4_5  S_N2_5  S_ALK_5  X_SS_5  Q_5 ];
 
 % Define the base output directory
-base_output_dir = '/Users/aya/github/WWDR/ASM1-2d-3_MATLAB/ASM1 2d 3 in BSM1/ASM3/ASM3_OutputDB';
+base_output_dir = '/Users/ikai/github/WWDR/ASM1-2d-3_MATLAB/ASM1 2d 3 in BSM1/ASM3/ASM3_OutputDB';
 
 iteration = t(1);
 
