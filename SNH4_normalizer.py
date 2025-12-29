@@ -5,11 +5,13 @@ from __future__ import annotations
 
 import argparse
 import logging
+import re
 from pathlib import Path
 from typing import Optional, Sequence
 
 import pandas as pd
 
+from Codex.energy_use_utils import ENERGY_USE_PREFIX, build_energy_use_column_name, energy_use_suffix_from_column
 LOGGER = logging.getLogger(__name__)
 
 DEFAULT_INPUT = Path(
@@ -21,6 +23,7 @@ DEFAULT_NOMINAL = Path(
 DEFAULT_OUTPUT = Path(
     "/Users/ikai/github/WWDR/Databases/3dayspread_ASM3-KLa5-84/naive_stacked_data/with_snh4_norm"
 )
+DEFAULT_ENERGY_NOMINAL = Path("Codex/Reac1_to_Reac5_nominal_energy.md")
 
 TIME_COLUMN = "timestamp"
 EXP_SNH4_COLUMN = "S_NH4"
@@ -76,12 +79,98 @@ def compute_normalized_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def load_nominal_energy_values(path: Path) -> dict[str, float]:
+    """Parse nominal energy-use values keyed by reactor suffix from a markdown file."""
+    pattern = re.compile(
+        r"reac\s*(?P<index>[1-5])\s*[:=]\s*(?P<value>[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?)",
+        re.IGNORECASE,
+    )
+    nominal: dict[str, float] = {}
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            match = pattern.search(line)
+            if not match:
+                continue
+            suffix = f"R{match.group('index')}"
+            try:
+                value = float(match.group("value"))
+            except ValueError:
+                LOGGER.warning("Skipping unparsable nominal energy entry: %s", line.strip())
+                continue
+            nominal[suffix] = value
+    if not nominal:
+        raise ValueError(f"No nominal energy values parsed from {path}.")
+    return nominal
+
+
+def rename_energy_use_column(df: pd.DataFrame, *, identifier: Path) -> pd.DataFrame:
+    """Ensure energy-use columns include the reactor-specific suffix derived from the dataset."""
+    energy_columns = [col for col in df.columns if str(col).lower().startswith(ENERGY_USE_PREFIX)]
+    if not energy_columns:
+        return df
+    try:
+        target_name = build_energy_use_column_name(identifier)
+    except ValueError as exc:
+        LOGGER.warning(
+            "Energy-use column detected in %s but reactor suffix could not be derived: %s",
+            identifier,
+            exc,
+        )
+        return df
+    if target_name in df.columns:
+        return df
+    rename_map = {energy_columns[0]: target_name}
+    if len(energy_columns) > 1:
+        LOGGER.warning(
+            "Multiple energy-use columns found in %s; renaming first occurrence (%s -> %s).",
+            identifier.name,
+            energy_columns[0],
+            target_name,
+        )
+    return df.rename(columns=rename_map)
+
+
+def append_energy_normalizations(
+    df: pd.DataFrame,
+    *,
+    nominal_energy: dict[str, float],
+    identifier: Path,
+) -> pd.DataFrame:
+    """Append normalized energy-use columns by dividing by reactor-specific nominal values."""
+    working = rename_energy_use_column(df, identifier=identifier)
+    energy_columns = [
+        column for column in working.columns if energy_use_suffix_from_column(str(column))
+    ]
+    if not energy_columns:
+        return working
+
+    for column in energy_columns:
+        suffix = energy_use_suffix_from_column(str(column))
+        if suffix is None:
+            continue
+        nominal_value = nominal_energy.get(suffix)
+        if nominal_value is None:
+            LOGGER.warning(
+                "No nominal energy reference for column %s (suffix %s); skipping normalization.",
+                column,
+                suffix,
+            )
+            continue
+        if nominal_value == 0:
+            LOGGER.warning("Nominal energy reference for column %s is zero; skipping normalization.", column)
+            continue
+        normalized = pd.to_numeric(working[column], errors="coerce") / nominal_value
+        working[f"{column}_normalized"] = normalized
+    return working
+
+
 def process_file(
     exp_path: Path,
     *,
     nominal_dir: Path,
     output_dir: Path,
     suffix: str,
+    energy_nominal_path: Path,
 ) -> None:
     LOGGER.info("Processing %s", exp_path.name)
     exp_df = pd.read_csv(exp_path)
@@ -96,6 +185,12 @@ def process_file(
     exp_df[f"nominal_{EXP_SNH4_COLUMN}"] = aligned_nominal
 
     exp_df = compute_normalized_columns(exp_df)
+    nominal_energy = load_nominal_energy_values(energy_nominal_path)
+    exp_df = append_energy_normalizations(
+        exp_df,
+        nominal_energy=nominal_energy,
+        identifier=exp_path,
+    )
 
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / f"{exp_path.stem}{suffix}{exp_path.suffix}"
@@ -117,6 +212,12 @@ def parse_arguments(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         type=Path,
         default=DEFAULT_NOMINAL,
         help="Directory containing nominal baseline CSV files.",
+    )
+    parser.add_argument(
+        "--energy-nominal",
+        type=Path,
+        default=DEFAULT_ENERGY_NOMINAL,
+        help="Markdown file containing nominal energy-use values keyed by reactor.",
     )
     parser.add_argument(
         "--output-dir",
@@ -145,11 +246,14 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     input_dir = args.input_dir.expanduser().resolve()
     nominal_dir = args.nominal_dir.expanduser().resolve()
     output_dir = args.output_dir.expanduser().resolve()
+    energy_nominal_path = args.energy_nominal.expanduser().resolve()
 
     if not input_dir.exists():
         raise FileNotFoundError(f"Input directory not found: {input_dir}")
     if not nominal_dir.exists():
         raise FileNotFoundError(f"Nominal directory not found: {nominal_dir}")
+    if not energy_nominal_path.exists():
+        raise FileNotFoundError(f"Nominal energy file not found: {energy_nominal_path}")
 
     csv_files = iter_csv(input_dir)
     if not csv_files:
@@ -163,6 +267,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
                 nominal_dir=nominal_dir,
                 output_dir=output_dir,
                 suffix=args.suffix,
+                energy_nominal_path=energy_nominal_path,
             )
         except Exception as exc:  # pragma: no cover
             LOGGER.error("Failed to compute normalized S_NH4 for %s: %s", exp_path.name, exc)

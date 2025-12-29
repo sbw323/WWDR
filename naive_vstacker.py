@@ -26,6 +26,7 @@ try:
 except ImportError as exc:  # pragma: no cover - informative guard
     raise SystemExit("pandas is required. Install it with 'pip install pandas'.") from exc
 
+from Codex.energy_use_utils import build_energy_use_column_name
 from Codex.pollu_vis import ASM3_COLUMNS
 
 LOGGER = logging.getLogger(__name__)
@@ -133,16 +134,30 @@ def gather_type_buckets(iter_dirs: Sequence[Path]) -> Dict[str, List[Tuple[str, 
 
 def load_csv(path: Path) -> pd.DataFrame:
     df = pd.read_csv(path, header=None)
-    if df.shape[1] < len(ASM3_COLUMNS):
-        raise ValueError(f"{path}: expected at least {len(ASM3_COLUMNS)} columns, found {df.shape[1]}.")
-    if df.shape[1] > len(ASM3_COLUMNS):
+    base_columns = list(ASM3_COLUMNS)
+    if df.shape[1] < len(base_columns):
+        raise ValueError(f"{path}: expected at least {len(base_columns)} columns, found {df.shape[1]}.")
+
+    column_names = list(base_columns)
+    if df.shape[1] >= len(base_columns) + 1:
+        try:
+            energy_column = build_energy_use_column_name(path)
+        except ValueError:
+            LOGGER.warning(
+                "%s: extra column detected but reactor suffix missing; using generic energy-use name.",
+                path,
+            )
+            energy_column = "energy_use"
+        column_names.append(energy_column)
+
+    if df.shape[1] > len(column_names):
         LOGGER.warning(
-            "%s: trimming extra %d column(s) beyond ASM3 schema.",
+            "%s: trimming extra %d column(s) beyond recognised schema.",
             path,
-            df.shape[1] - len(ASM3_COLUMNS),
+            df.shape[1] - len(column_names),
         )
-    df = df.iloc[:, : len(ASM3_COLUMNS)]
-    df.columns = ASM3_COLUMNS
+    df = df.iloc[:, : len(column_names)]
+    df.columns = column_names
     return df
 
 

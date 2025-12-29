@@ -223,8 +223,11 @@ for current_segment = 1:total_segments
         if exist('Data_writer_newer', 'file')
             Data_writer_settler;
         end
-        if exist('Data_writer_reac', 'file')
-            Data_writer_reac;
+        % if exist('Data_writer_reac', 'file')
+        %     Data_writer_reac;
+        % end
+        if exist('Data_writer_reac_energy', 'file')
+            Data_writer_reac_energy;
         end
         % if exist('perf_plant_LT_DR', 'file')
             % perf_plant_LT_DR;

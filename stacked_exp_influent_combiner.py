@@ -10,6 +10,7 @@ from typing import Optional, Sequence
 
 import pandas as pd
 
+from Codex.energy_use_utils import ENERGY_USE_PREFIX, build_energy_use_column_name
 LOGGER = logging.getLogger(__name__)
 
 DEFAULT_INPUT = Path(
@@ -71,6 +72,33 @@ def ensure_ticker(series_df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def ensure_energy_use_column(df: pd.DataFrame, *, identifier: Path) -> pd.DataFrame:
+    """Normalize energy-use column naming to include the dataset's reactor suffix."""
+    energy_columns = [col for col in df.columns if str(col).lower().startswith(ENERGY_USE_PREFIX)]
+    if not energy_columns:
+        return df
+    try:
+        target_name = build_energy_use_column_name(identifier)
+    except ValueError as exc:
+        LOGGER.warning(
+            "Energy-use column detected in %s but reactor suffix could not be derived: %s",
+            identifier,
+            exc,
+        )
+        return df
+    if target_name in df.columns:
+        return df
+    rename_map = {energy_columns[0]: target_name}
+    if len(energy_columns) > 1:
+        LOGGER.warning(
+            "Multiple energy-use columns found in %s; renaming first occurrence (%s -> %s).",
+            identifier.name,
+            energy_columns[0],
+            target_name,
+        )
+    return df.rename(columns=rename_map)
+
+
 def append_influent(df: pd.DataFrame, influent_df: pd.DataFrame) -> pd.DataFrame:
     working = ensure_ticker(df)
 
@@ -99,6 +127,7 @@ def process_file(
 ) -> None:
     LOGGER.info("Joining influent data with %s", path.name)
     df = pd.read_csv(path)
+    df = ensure_energy_use_column(df, identifier=path)
     merged = append_influent(df, influent_df)
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / f"{path.stem}{suffix}{path.suffix}"
