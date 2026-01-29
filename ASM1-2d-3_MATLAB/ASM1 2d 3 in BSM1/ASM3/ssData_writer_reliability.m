@@ -1,85 +1,61 @@
-function Data_writer_reliability(settler, iter, KLa3, KLa4, KLa5, Q, sim_stoptime, output_file)
-% DATA_WRITER_RELIABILITY Save steady state reliability data (Simplified)
+function ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, Q, sim_stoptime, output_file)
+% ssDATA_WRITER_RELIABILITY 
+% Saves steady state output for reliability analysis.
 %
 % INPUTS:
-%   settler         - Settler output matrix from simulation
-%   iter            - Iteration number
-%   KLa3            - Aeration coefficient reactor 3 (1/d)
-%   KLa4            - Aeration coefficient reactor 4 (1/d)
-%   KLa5            - Aeration coefficient reactor 5 (1/d)
-%   Q               - Flow rate (m³/d)
-%   sim_stoptime    - Simulation stop time (days)
-%   output_file     - Path to output CSV file
+%   settler: Output matrix from benchmarkss (requires specific columns)
+%   iter, KLa3...: Simulation parameters for logging
 %
-% OUTPUT CSV COLUMNS:
-%   iter, KLa3, KLa4, KLa5, Q, sim_stoptime,
-%   SNH_eff, SI_eff, SS_eff, XI_eff, XS_eff, XH_eff, XA_eff, XSTO_eff,
-%   COD_eff, failure
-%
-% Author: Samuel Botts White
-% Date: 2025
+% OUTPUT: Appends row to CSV file.
 
-%% Effluent limits
-SNH_limit = 4.0;     % mg/L
-COD_limit = 100.0;   % mg/L
+    %% 1. Effluent Limits (Used for Failure Flag)
+    SNH_limit = 4.0;     % mg/L
+    COD_limit = 100.0;   % mg/L
 
-%% Extract steady state values from settler matrix
-% Settler columns (from Data_writer_settler.md):
-% 23: SI, 24: SS, 25: SNH, 29: XI, 30: XS, 31: XBH (X_H), 32: XSTO, 33: XBA (X_A)
-
-SNH_eff = settler(end, 25);
-SI_eff = settler(end, 23);
-SS_eff = settler(end, 24);
-XI_eff = settler(end, 29);
-XS_eff = settler(end, 30);
-XH_eff = settler(end, 31);
-XA_eff = settler(end, 33);
-XSTO_eff = settler(end, 32);
-
-%% Calculate COD
-% COD = SI + SS + XI + XS + X_H + X_A + X_STO
-COD_eff = SI_eff + SS_eff + XI_eff + XS_eff + XH_eff + XA_eff + XSTO_eff;
-
-%% Check failure
-SNH_violation = (SNH_eff > SNH_limit);
-COD_violation = (COD_eff > COD_limit);
-failure = double(SNH_violation || COD_violation);
-
-%% Create output row
-output_row = [iter, KLa3, KLa4, KLa5, Q, sim_stoptime, ...
-              SNH_eff, SI_eff, SS_eff, XI_eff, XS_eff, XH_eff, XA_eff, XSTO_eff, ...
-              COD_eff, failure];
-
-%% Write to CSV
-if iter == 1
-    % First iteration: create file with header
-    header = {'iter', 'KLa3', 'KLa4', 'KLa5', 'Q', 'sim_stoptime', ...
-              'SNH_eff', 'SI_eff', 'SS_eff', 'XI_eff', 'XS_eff', 'XH_eff', 'XA_eff', 'XSTO_eff', ...
-              'COD_eff', 'failure'};
+    %% 2. Extract Steady State Values (Last Row)
+    % Column mapping based on BSM1/ASM3 standard:
+    % 23: S_I, 24: S_S, 25: S_NH, 29: X_I, 30: X_S, 31: X_H, 32: X_STO, 33: X_A
     
-    data_table = array2table(output_row, 'VariableNames', header);
-    writetable(data_table, output_file);
-    fprintf('    ✓ Created output file\n');
-else
-    % Append data
-    dlmwrite(output_file, output_row, '-append', 'delimiter', ',', 'precision', '%.6f');
-    fprintf('    ✓ Data appended\n');
-end
+    SNH_eff  = settler(end, 25);
+    
+    % COD Components
+    SI_eff   = settler(end, 23);
+    SS_eff   = settler(end, 24);
+    XI_eff   = settler(end, 29);
+    XS_eff   = settler(end, 30);
+    XH_eff   = settler(end, 31);
+    XSTO_eff = settler(end, 32); % Included for accurate ASM3 COD calc
+    XA_eff   = settler(end, 33);
 
-%% Print results
-fprintf('    SNH=%.3f mg/L, COD=%.2f mg/L', SNH_eff, COD_eff);
+    %% 3. Calculate COD
+    % COD = Sum of all organic components
+    COD_eff = SI_eff + SS_eff + XI_eff + XS_eff + XH_eff + XA_eff + XSTO_eff;
 
-if failure
-    fprintf(' - FAILURE');
-    if SNH_violation
-        fprintf(' (SNH>%.1f)', SNH_limit);
+    %% 4. Determine Failure (Boolean)
+    % Returns 1 if either limit is violated, 0 otherwise
+    is_fail = (SNH_eff > SNH_limit) || (COD_eff > COD_limit);
+    failure = double(is_fail);
+
+    %% 5. Construct Output Row
+    output_data = [iter, KLa3, KLa4, KLa5, Q, sim_stoptime, ...
+                   SNH_eff, SI_eff, SS_eff, XI_eff, XS_eff, ...
+                   XH_eff, XA_eff, XSTO_eff, COD_eff, failure];
+
+    %% 6. Write to CSV
+    if iter == 1
+        % Create new file with Header
+        header = {'Iter', 'KLa3', 'KLa4', 'KLa5', 'Q', 'StopTime', ...
+                  'SNH', 'S_I', 'S_S', 'X_I', 'X_S', ...
+                  'X_H', 'X_A', 'X_STO', 'COD', 'Failure'};
+        
+        % Write header using Table for simplicity
+        T = array2table(output_data, 'VariableNames', header);
+        writetable(T, output_file);
+        fprintf('      -> Created file: %s\n', output_file);
+    else
+        % Append data row
+        dlmwrite(output_file, output_data, '-append', 'delimiter', ',', 'precision', 6);
+        fprintf('      -> Data appended.\n');
     end
-    if COD_violation
-        fprintf(' (COD>%.1f)', COD_limit);
-    end
-    fprintf('\n');
-else
-    fprintf(' - PASS\n');
-end
 
 end
