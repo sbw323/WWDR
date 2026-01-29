@@ -6,7 +6,7 @@
 % 1. Define test cases in 'test_cases' matrix.
 % 2. Run script.
 %
-% Note: Uses 'benchmarkinit' for initialization.
+% Fixes applied: Uses .mat file to persist loop variables across 'clear all'.
 
 %% ===============================================
 %% CONFIGURATION
@@ -54,58 +54,46 @@ total_start = tic;
 
 for iter = 1:num_iterations
     
-    fprintf('--- Iteration %d/%d ---\n', iter, num_iterations);
+    % Note: If the workspace was just cleared, 'iter' is restored by the load() command below
     
     try
-        % 1. Extract parameters for current iteration
+        % 1. Extract parameters for the current iteration (Pre-Clear)
+        % We extract these just to print the header; they are re-extracted after reload
+        KLa_print = test_cases(iter, 1);
+        
+        fprintf('--- Iteration %d/%d ---\n', iter, num_iterations);
+        
+        % 2. SAVE STATE TO FILE
+        % We must save ALL loop control variables to disk before clearing
+        save('temp_sim_state.mat', 'iter', 'test_cases', 'output_file', ...
+             'ss_model', 'num_iterations', 'total_start');
+
+        % 3. CLEAR WORKSPACE
+        clear all; 
+        
+        % 4. RESTORE STATE FROM FILE
+        % Immediately bring variables back to life
+        load('temp_sim_state.mat');
+        
+        % Cleanup the temp file (optional, keeps folder clean)
+        delete('temp_sim_state.mat');
+
+        % 5. EXTRACT TARGETS (Post-Restore)
         KLa3_target = test_cases(iter, 1);
         KLa4_target = test_cases(iter, 2);
         KLa5_target = test_cases(iter, 3);
         Q_target    = test_cases(iter, 4);
         Stop_target = test_cases(iter, 5);
         
-        fprintf('   Setting: KLa=[%d, %d, %d], Q=%d, Time=%d\n', ...
+        fprintf('   Target: KLa=[%d, %d, %d], Q=%d, Time=%d\n', ...
             KLa3_target, KLa4_target, KLa5_target, Q_target, Stop_target);
 
-        % 2. SAVE STATE: Preserve loop variables before clearing workspace
-        iter_save = iter;
-        test_cases_save = test_cases;
-        output_file_save = output_file;
-        ss_model_save = ss_model;
-        num_iterations_save = num_iterations;
-        total_start_save = total_start;
-        
-        % Current Iteration Targets
-        KLa3_t = KLa3_target;
-        KLa4_t = KLa4_target;
-        KLa5_t = KLa5_target;
-        Q_t    = Q_target;
-        Stop_t = Stop_target;
-
-        % 3. CLEAR WORKSPACE: Ensure clean simulation environment
-        clear all; 
-        
-        % 4. RESTORE STATE: Reload loop variables
-        iter = iter_save;
-        test_cases = test_cases_save;
-        output_file = output_file_save;
-        ss_model = ss_model_save;
-        num_iterations = num_iterations_save;
-        total_start = total_start_save;
-        
-        % Restore targets
-        KLa3_target = KLa3_t;
-        KLa4_target = KLa4_t;
-        KLa5_target = KLa5_t;
-        Q_target    = Q_t;
-        sim_stoptime = Stop_t;
-
-        % 5. INITIALIZE MODEL
+        % 6. INITIALIZE MODEL
         % Using standard benchmarkinit as requested
         fprintf('   Initializing standard benchmark...\n');
         benchmarkinit; 
         
-        % 6. OVERRIDE PARAMETERS
+        % 7. OVERRIDE PARAMETERS
         % Override Flow Rate (Q)
         Q = Q_target;
         
@@ -114,13 +102,13 @@ for iter = 1:num_iterations
         KLa4 = KLa4_target;
         KLa5 = KLa5_target;
 
-        % 7. CONFIGURE & RUN SIMULATION
+        % 8. CONFIGURE & RUN SIMULATION
         if ~bdIsLoaded(ss_model)
             load_system(ss_model);
         end
         
         % Set Simulation Stop Time
-        set_param(ss_model, 'StopTime', num2str(sim_stoptime));
+        set_param(ss_model, 'StopTime', num2str(Stop_target));
         set_param(ss_model, 'Solver', 'ode45');
         set_param(ss_model, 'SimulationMode', 'normal');
 
@@ -137,15 +125,23 @@ for iter = 1:num_iterations
         
         fprintf('   Simulation finished (%.2f sec)\n', toc(sim_start));
         
-        % 8. CAPTURE & SAVE DATA
+        % 9. CAPTURE & SAVE DATA
         % 'stateset' captures steady state values into 'settler' matrix
         stateset; 
         
         fprintf('   Saving data...\n');
-        ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, Q, sim_stoptime, output_file);
+        
+        % Note: We pass sim_stoptime (or Stop_target) to the writer
+        ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, Q, Stop_target, output_file);
         
     catch ME
-        fprintf('   ERROR in iteration %d: %s\n', iter, ME.message);
+        % If 'iter' exists, print it. If error happened before restore, handle gracefully.
+        if exist('iter', 'var')
+            fprintf('   ERROR in iteration %d: %s\n', iter, ME.message);
+        else
+            fprintf('   ERROR (Iter Unknown): %s\n', ME.message);
+        end
+        
         % Attempt cleanup
         try bdclose(ss_model); catch; end
     end
