@@ -1,4 +1,4 @@
-function ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, sim_stoptime, output_file)
+function ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, Q, sim_stoptime, output_file)
 % ssDATA_WRITER_RELIABILITY 
 % Saves steady state output for reliability analysis.
 %
@@ -15,7 +15,7 @@ function ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, sim_stoptime
     %% 2. Extract Steady State Values (Last Row)
     % Column mapping based on BSM1/ASM3 standard:
     % 23: S_I, 24: S_S, 25: S_NH, 29: X_I, 30: X_S, 31: X_H, 32: X_STO, 33: X_A
-    
+    Q = CONSTINFLUENT(1,15);
     SNH_eff  = settler(end, 25);
     
     % COD Components
@@ -37,14 +37,14 @@ function ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, sim_stoptime
     failure = double(is_fail);
 
     %% 5. Construct Output Row
-    output_data = [iter, KLa3, KLa4, KLa5, sim_stoptime, ...
+    output_data = [iter, KLa3, KLa4, KLa5, Q, sim_stoptime, ...
                    SNH_eff, SI_eff, SS_eff, XI_eff, XS_eff, ...
                    XH_eff, XA_eff, XSTO_eff, COD_eff, failure];
 
     %% 6. Write to CSV
     if iter == 1
         % Create new file with Header
-        header = {'Iter', 'KLa3', 'KLa4', 'KLa5', 'StopTime', ...
+        header = {'Iter', 'KLa3', 'KLa4', 'KLa5', 'Q', 'StopTime', ...
                   'SNH', 'S_I', 'S_S', 'X_I', 'X_S', ...
                   'X_H', 'X_A', 'X_STO', 'COD', 'Failure'};
         
