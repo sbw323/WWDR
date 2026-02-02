@@ -24,22 +24,18 @@ end
 % Matrix Columns: [KLa3, KLa4, KLa5, Q, StopTime]
 test_cases = [
     % KLa3  KLa4  KLa5   Q      StopTime
-      240      240      84   200;
-      220.80   220.80   77.28   200;
-      203.14   203.14   71.10   400;
-      186.89   186.89   65.41   400;
-      171.93   171.93   60.18   600;
-      158.18   158.18   55.36   800;
-      145.53   145.53   50.93   800;
-      133.88   133.88   46.86   1000;
-      123.17   123.17   43.11   1000;
-      113.32   113.32   39.66   2000;
-      104.25   104.25   36.49   2000;
-];
-
-CONSTINFLUENT(1,15) = 20291;
-CONSTINFLUENT(2,15) = 20291;
-Q = CONSTINFLUENT(1,15);
+      240   240   84   18446   200;
+      220.80   220.80   77.28   18446   200;
+      203.14   203.14   71.10   18446   400;
+      186.89   186.89   65.41   18446   400;
+      171.93   171.93   60.18   18446   600;
+      158.18   158.18   55.36   18446   800;
+      145.53   145.53   50.93   18446   800;
+      133.88   133.88   46.86   18446   1000;
+      123.17   123.17   43.11   18446   1000;
+      113.32   113.32   39.66   18446   2000;
+      104.25   104.25   36.49   18446   2000;
+      ];
 
 ss_model = 'benchmarkss';
 num_iterations = size(test_cases, 1);
@@ -98,12 +94,14 @@ while true
         KLa3_target = test_cases(iter, 1);
         KLa4_target = test_cases(iter, 2);
         KLa5_target = test_cases(iter, 3);
-        Stop_target = test_cases(iter, 4);
+        Q_target    = test_cases(iter, 4);
+        Stop_target = test_cases(iter, 5);
         
-        fprintf('   Target: KLa=[%d, %d, %d], Time=%d\n', ...
-            KLa3_target, KLa4_target, KLa5_target, Stop_target);
+        fprintf('   Target: KLa=[%d, %d, %d], Q=%d, Time=%d\n', ...
+            KLa3_target, KLa4_target, KLa5_target, Q_target, Stop_target);
 
         % G. OVERRIDE PARAMETERS
+        Q = Q_target;
         KLa3 = KLa3_target;
         KLa4 = KLa4_target;
         KLa5 = KLa5_target;
