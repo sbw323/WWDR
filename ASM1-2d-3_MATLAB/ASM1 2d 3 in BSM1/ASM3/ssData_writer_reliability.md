@@ -3,8 +3,12 @@ function ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, Q, sim_stopt
 % Saves steady state output for reliability analysis.
 %
 % INPUTS:
-%   settler: Output matrix from benchmarkss (requires specific columns)
-%   iter, KLa3...: Simulation parameters for logging
+%   settler:      Output matrix from benchmarkss
+%   iter:         Iteration number
+%   KLa3,4,5:     Aeration coefficients
+%   Q:            Flow rate (Passed from generator script)
+%   sim_stoptime: Simulation duration
+%   output_file:  Path to CSV
 %
 % OUTPUT: Appends row to CSV file.
 
@@ -15,7 +19,7 @@ function ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, Q, sim_stopt
     %% 2. Extract Steady State Values (Last Row)
     % Column mapping based on BSM1/ASM3 standard:
     % 23: S_I, 24: S_S, 25: S_NH, 29: X_I, 30: X_S, 31: X_H, 32: X_STO, 33: X_A
-    Q = CONSTINFLUENT(1,15);
+    
     SNH_eff  = settler(end, 25);
     
     % COD Components
@@ -24,7 +28,7 @@ function ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, Q, sim_stopt
     XI_eff   = settler(end, 29);
     XS_eff   = settler(end, 30);
     XH_eff   = settler(end, 31);
-    XSTO_eff = settler(end, 32); % Included for accurate ASM3 COD calc
+    XSTO_eff = settler(end, 32); 
     XA_eff   = settler(end, 33);
 
     %% 3. Calculate COD
@@ -32,7 +36,6 @@ function ssData_writer_reliability(settler, iter, KLa3, KLa4, KLa5, Q, sim_stopt
     COD_eff = SI_eff + SS_eff + XI_eff + XS_eff + XH_eff + XA_eff + XSTO_eff;
 
     %% 4. Determine Failure (Boolean)
-    % Returns 1 if either limit is violated, 0 otherwise
     is_fail = (SNH_eff > SNH_limit) || (COD_eff > COD_limit);
     failure = double(is_fail);
 
