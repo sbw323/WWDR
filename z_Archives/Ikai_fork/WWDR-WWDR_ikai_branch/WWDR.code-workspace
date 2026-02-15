@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../OpenAI"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}
